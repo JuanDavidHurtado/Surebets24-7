@@ -23,9 +23,11 @@ class CProducto extends Controller
             $nombre = $request->input('nombre');
             $valor = $request->input('valor');
             $porcentaje = $request->input('porcentaje');
+            $porcentaje_comision = $request->input('porcentaje_comision');
 
-            DB::insert('INSERT INTO inversion (invNombre, invValor, invPorcentaje) VALUES (?,?,?)',
-             [$nombre, $valor, $porcentaje]);
+
+            DB::insert('INSERT INTO inversion (invNombre, invValor, invPorcentaje, invPorcentajeComision) VALUES (?,?,?,?)',
+             [$nombre, $valor, $porcentaje, $porcentaje_comision]);
 
             return response()->json(['message' => 'Producto agregado con éxito'], 201);
         } catch (\Exception $e) {

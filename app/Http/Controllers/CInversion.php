@@ -16,6 +16,17 @@ class CInversion extends Controller
         return response()->json($data);
     }
 
+    public function producto_usuario()
+    {
+        $sql = "SELECT * FROM usuario_inversion AS ui
+        
+        INNER JOIN inversion AS i ON i.idInversion = ui.inversion_idInversion
+        WHERE ui.usuario_idUsuario = '2'";
+        $data = DB::select($sql);
+
+        return response()->json($data);
+    }
+
     public function seleccion_plan($id)
     {
         $sql = "SELECT * FROM inversion AS i
@@ -72,7 +83,7 @@ class CInversion extends Controller
                 WHERE inv.idInversion = '$producto'";
                 $data_inv = DB::select($sql_inv);
 
-                $vl_com = ($data_inv[0]->invValor * $data_inv[0]->invPorcentaje) / 100;
+                $vl_com = ($data_inv[0]->invValor * $data_inv[0]->invPorcentajeComision) / 100;
 
                 //dd($vl_com);
 

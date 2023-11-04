@@ -16,6 +16,17 @@ class CCursousuario extends Controller
         return response()->json($data);
     }
 
+    public function curso_usuario()
+    {
+        $sql = "SELECT * FROM usuario_curso AS uc
+        
+        INNER JOIN curso AS c ON c.idCurso = uc.curso_idCurso
+        WHERE uc.usuario_idUsuario = '2'";
+        $data = DB::select($sql);
+
+        return response()->json($data);
+    }
+
     public function seleccion_curso($id)
     {
         $sql = "SELECT * FROM curso AS c
