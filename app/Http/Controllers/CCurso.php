@@ -15,7 +15,7 @@ class CCurso extends Controller
     {
         $sql = "SELECT * FROM curso";
         $data = DB::select($sql);
-
+        
         return response()->json($data);
     }
 
