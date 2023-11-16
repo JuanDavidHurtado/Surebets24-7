@@ -267,7 +267,7 @@
                 <!-- navbar -->
                 <nav class="navbar navbar-expand-lg">
                     <div class="container-fluid">
-                        <a class="d-lg-none" href="https://purple-hyip.bugfinder.net">
+                        <a class="d-lg-none" href="#">
                             <img src="https://purple-hyip.bugfinder.net/assets/uploads/logo/logo.png" alt="Hyippro" width="160">
                         </a>
 
@@ -281,7 +281,7 @@
                     <div class="user-panel d-none d-lg-inline-block">
                         <span class="profile"><img src="https://purple-hyip.bugfinder.net/assets/admin/images/default.png" alt="user img" class="img-fluid"></span>
                         <ul class="user-dropdown">
-                            <li><a href="https://purple-hyip.bugfinder.net/user/dashboard"><i aria-hidden="true" class="fal fa-border-all"></i> Dashboard
+                            <li><a href="#"><i aria-hidden="true" class="fal fa-border-all"></i> Dashboard
                                 </a>
                             </li>
                             <li><a href="{{route('perfil')}}"><i aria-hidden="true" class="fal fa-user"></i> Mi Perfil
@@ -311,7 +311,6 @@
         <script src="{{asset('darkpurple/js/jquery-3.6.1.min.js')}}"></script>
         <script src="{{asset('darkpurple/js/jquery-ui.js')}}"></script>
         <script src="{{asset('darkpurple/js/aos.js')}}"></script>
-        <script src="{{asset('darkpurple/js/radialprogressOld.js')}}"></script>
         <script src="{{asset('darkpurple/js/select2.min.js')}}"></script>
         <script src="{{asset('darkpurple/js/fontawesomepro.js')}}"></script>
         <style media="all" id="fa-main">
@@ -19345,67 +19344,7 @@
         <script src="{{asset('darkpurple/js/dashboard.js')}}"></script>
 
 
-        <script>
-            'use strict'
-            let pushNotificationArea = new Vue({
-                el: "#pushNotificationArea",
-                data: {
-                    items: [],
-                },
-                mounted() {
-                    this.getNotifications();
-                    this.pushNewItem();
-                },
-                methods: {
-                    getNotifications() {
-                        let app = this;
-                        axios.get("https://purple-hyip.bugfinder.net/user/push-notification-show")
-                            .then(function(res) {
-                                app.items = res.data;
-                            })
-                    },
-                    readAt(id, link) {
-                        let app = this;
-                        let url = "https://purple-hyip.bugfinder.net/user/push-notification-readAt/0";
-                        url = url.replace(/.$/, id);
-                        axios.get(url)
-                            .then(function(res) {
-                                if (res.status) {
-                                    app.getNotifications();
-                                    if (link != '#') {
-                                        window.location.href = link
-                                    }
-                                }
-                            })
-                    },
-                    readAll() {
-                        let app = this;
-                        let url = "https://purple-hyip.bugfinder.net/user/push.notification.readAll";
-                        axios.get(url)
-                            .then(function(res) {
-                                if (res.status) {
-                                    app.items = [];
-                                }
-                            })
-                    },
-                    pushNewItem() {
-                        let app = this;
-                        // Pusher.logToConsole = true;
-                        let pusher = new Pusher("", {
-                            encrypted: true,
-                            cluster: "mt1"
-                        });
-                        let channel = pusher.subscribe('user-notification.' + "19");
-                        channel.bind('App\\Events\\UserNotification', function(data) {
-                            app.items.unshift(data.message);
-                        });
-                        channel.bind('App\\Events\\UpdateUserNotification', function(data) {
-                            app.getNotifications();
-                        });
-                    }
-                }
-            });
-        </script>
+    
 
 
         <script src="{{asset('darkpurple/js/apexcharts.js')}}"></script>

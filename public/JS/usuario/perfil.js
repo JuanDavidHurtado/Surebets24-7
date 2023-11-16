@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(data => {
-            console.log(data);
             // Autocompletar los campos con los datos obtenidos
             document.getElementById('nombre').value = data.usuario.usuNombre;
             document.getElementById('apellido').value = data.usuario.usuApellido;
