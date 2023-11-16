@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Hash;
+
 
 class CReferido extends Controller
 {
-
-
-
     public function listar()
     {
         $id = 1;
@@ -24,4 +24,6 @@ class CReferido extends Controller
 
         return response()->json($data);
     }
+
+   
 }

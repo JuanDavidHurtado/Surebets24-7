@@ -2,139 +2,95 @@
 
 
 @section('content')
+<style>
+    .login-section {
+        background-image: url(https://purple-hyip.bugfinder.net/assets/uploads/logo/partials_darkpurple_banner.png) !important;
+        background-repeat: no-repeat;
+    }
+</style>
+
     <!-- Register section -->
     <section class="login-section">
+     
         <div class="container h-100">
             <div class="row h-100 justify-content-center">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <div class="form-wrapper d-flex align-items-center h-100">
-                        <form action="#" method="post">
-                            @csrf
-
-                            @if(session()->get('sponsor') != null)
-                                <div class="col-md-12">
-                                    <div class="form-group mb-30">
-                                        <label>@lang('Sponsor Name')</label>
-                                        <input type="text" name="sponsor" class="form-control" id="sponsor"
-                                               placeholder="{{trans('Sponsor By') }}"
-                                               value="{{session()->get('sponsor')}}" readonly>
-                                    </div>
-                                </div>
-                            @endif
-
+                   
+                        <form id="agregarUserForm">
+                            
                             <div class="row g-4">
                                 <div class="col-12">
-                                    <h4>@lang('Register Here')</h4>
-                                </div>
-                                <div class="input-box col-12">
-                                    <input type="text" name="firstname" class="form-control" value="{{old('firstname')}}" placeholder="@lang('First Name')">
-                                    @error('firstname')<span class="text-danger mt-1">@lang($message)</span>@enderror
-                                </div>
-
-                                <div class="input-box col-12">
-                                    <input type="text" name="lastname" class="form-control" value="{{old('lastname')}}" placeholder="@lang('Last Name')">
-                                    @error('lastname')<span class="text-danger mt-1">@lang($message)</span>@enderror
-                                </div>
-
-                                <div class="input-box col-12">
-                                    <input type="text" name="username" class="form-control" value="{{old('username')}}" placeholder="@lang('Username')"/>
-                                    @error('username')<span class="text-danger mt-1">@lang($message)</span>@enderror
-                                </div>
-
-                                <div class="input-box col-12">
-                                    <input type="email" name="email" class="form-control" value="{{old('email')}}" placeholder="@lang('Email Address')"/>
-                                    @error('email')<span class="text-danger mt-1">@lang($message)</span>@enderror
-                                </div>
-
-                                {{-- <div class="input-box col-12">
-                                    @php
-                                        $country_code = (string) @getIpInfo()['code'] ?: null;
-                                        $myCollection = collect(config('country'))->map(function($row) {
-                                            return collect($row);
-                                        });
-                                        $countries = $myCollection->sortBy('code');
-                                    @endphp
-                                    <div class="form-group mb-1">
-                                        <select name="phone_code" class="form-control country_code dialCode-change register_phone_select">
-                                            @foreach(config('country') as $value)
-                                                <option value="{{$value['phone_code']}}"
-                                                        data-name="{{$value['name']}}"
-                                                        data-code="{{$value['code']}}"
-                                                    {{$country_code == $value['code'] ? 'selected' : ''}}
-                                                > {{$value['name']}} ({{$value['phone_code']}})
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                    <div id="successAlert" class="alert alert-success d-none" role="alert">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
-
-                                    <input type="text" name="phone" class="form-control dialcode-set" value="{{old('phone')}}" placeholder="@lang('Phone Number')">
-                                    @error('phone')
-                                    <span class="text-danger mt-1">@lang($message)</span>
-                                    @enderror
+                                    <div id="errorAlert" class="alert alert-danger d-none" role="alert">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div> 
+                                    <h4>Registro de usuario</h4>
+                                </div>
+                                <div class="input-box col-md-6">
+                                    <input type="text" name="documento" class="form-control" value="" placeholder="No Documento" required>
+                                </div>
+                             
+                                <div class="input-box col-md-6">
+                                    <input type="text" name="login" class="form-control" value="" placeholder="Username" required>
+                                </div>
+                              
+                                <div class="input-box col-md-6">
+                                    <input type="text" name="nombre" class="form-control" value="" placeholder="Nombre(s)" required>
+                                </div>
+                                <div class="input-box col-md-6">
+                                    <input type="text" name="apellido" class="form-control" value="" placeholder="Apellido(s)" required>
+                                </div>
+                                <div class="input-box col-md-6">
+                                    <input type="email" name="correo" class="form-control" value="" placeholder="Correo electronico" required>
+                                </div>
+                                {{-- <div class="input-box col-md-6">
+                                    <input type="text" name="usuCodigo" class="form-control" value="" placeholder="Codigo" required>
                                 </div> --}}
-
-                                <input type="hidden" name="country_code" value="{{old('country_code')}}" class="text-dark">
-
-                                <div class="input-box col-12">
-                                    <input type="password" name="password" class="form-control" placeholder="@lang('Password')"/>
-                                    @error('password')<span class="text-danger mt-1">@lang($message)</span>@enderror
+                                {{-- <div class="input-box col-md-4">
+                                        @include('VReferidos/codPostal')
+                                    
+                                </div> --}}
+                                <div class="input-box col-md-6">
+                                    <input type="text" name="telefono" class="form-control dialcode-set" value="" placeholder="Telefono" required>
                                 </div>
-
-                                <div class="input-box col-12">
-                                    <input type="password" name="password_confirmation" class="form-control" placeholder="@lang('Confirm Password')"/>
-                                    @error('password_confirmation')<span class="text-danger mt-1">@lang($message)</span>@enderror
+                                <div class="input-box col-md-6">
+                                    <input type="text" name="direccion" class="form-control dialcode-set" value="" placeholder="Direccion">
                                 </div>
-
-                                {{-- @if(basicControl()->reCaptcha_status_registration)
-                                    <div class="col-md-6 box mb-4 form-group">
-                                        {!! NoCaptcha::renderJs(session()->get('trans')) !!}
-                                        {!! NoCaptcha::display($basic->theme == 'deepblack' ? ['data-theme' => 'dark'] : []) !!}
-                                        @error('g-recaptcha-response')
-                                        <span class="text-danger mt-1">@lang($message)</span>
-                                        @enderror
-                                    </div>
-                                @endif --}}
-
+                                <div class="input-box col-md-6">
+                                    <input type="password" name="clave" class="form-control" placeholder="Password" required>
+                                </div>
+                                <div class="input-box col-md-6">
+                                    <input type="password" name="clave_confirmation" class="form-control" placeholder="Confirm Password" required>
+                                </div>
                                 <div class="col-12">
                                     <div class="links">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                @lang('I agree to the terms and conditions.')
-                                            </label>
+                                                I agree to the terms and conditions.                                            </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <button type="submit" class="btn-custom">@lang('Register')</button>
-                            <div class="bottom">
-                                @lang('Already have an account?')
-
-                                <a href="{{ route('login') }}">@lang('Log In')</a>
-                            </div>
+                            <button type="submit" class="btn-custom">
+                                Register
+                                <span id="buttonUsrReferidoSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+    
+                            </button>
+                           
                         </form>
+                     
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <script src="{{asset('js/usuario/registro.js')}}"></script>
 @endsection
 
 
-@push('script')
-    <script>
-        "use strict";
-        $(document).ready(function () {
-            setDialCode();
-            $(document).on('change', '.dialCode-change', function () {
-                setDialCode();
-            });
-            function setDialCode() {
-                let currency = $('.dialCode-change').val();
-                $('.dialcode-set').val(currency);
-            }
-        });
 
-    </script>
-@endpush
+

@@ -12,9 +12,10 @@ class CContenido extends Controller
     public function listar($id)
     {
         $sql = "SELECT * FROM curso AS c
-        INNER JOIN contenido AS cont ON cont.curso_idCurso = c.idCurso";
-        $data = DB::select($sql);
-
+                INNER JOIN contenido AS cont ON cont.curso_idCurso = c.idCurso
+                WHERE c.idCurso = :idCurso";
+        $data = DB::select($sql, ['idCurso' => $id]);
+    
         return response()->json($data);
     }
 

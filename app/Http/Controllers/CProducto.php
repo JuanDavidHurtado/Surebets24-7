@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CProducto extends Controller
 {
@@ -23,12 +24,14 @@ class CProducto extends Controller
             $nombre = $request->input('nombre');
             $valor = $request->input('valor');
             $porcentaje = $request->input('porcentaje');
+            $comision = $request->input('comision');
 
-            DB::insert('INSERT INTO inversion (invNombre, invValor, invPorcentaje) VALUES (?,?,?)',
-             [$nombre, $valor, $porcentaje]);
+            DB::insert('INSERT INTO inversion (invNombre, invValor, invPorcentaje,invPorcentajeComision) VALUES (?,?,?,?)',
+             [$nombre, $valor, $porcentaje,$comision]);
 
             return response()->json(['message' => 'Producto agregado con éxito'], 201);
         } catch (\Exception $e) {
+            Log::error('Error al insertar usuario: ' . $e->getMessage());
             return response()->json(['message' => 'Error al agregar el producto: ' . $e->getMessage()], 500);
         }
     }

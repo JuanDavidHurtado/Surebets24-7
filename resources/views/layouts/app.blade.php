@@ -15,6 +15,8 @@
 <link href="{{asset('uploads/logo/favicon.png')}}" rel="icon" sizes="16x16" type="image/png"/>
 <!-- <meta property="og:url" content="https://script.bugfinder.net/hyippro/purple"> -->
 <meta content="summary_large_image" name="twitter:card"/>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <!-- <link rel="stylesheet" type="text/css" href="/themes/darkpurple/css/bootstrap.min.css"> -->
 <link href="{{asset('darkpurple/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('darkpurple/css/animate.css')}}" rel="stylesheet" type="text/css"/>
@@ -81,7 +83,80 @@
             }
         </style>
     @yield('content')
+    <footer class="footer-section">
+        <div class="overlay">
+            <div class="container">
+                <div class="row gy-5 gy-lg-0">
+                    <div class="col-lg-3 col-md-6 pe-lg-5">
+                        <div class="footer-box">
+                            <a class="navbar-brand" href="https://purple-hyip.bugfinder.net"> <img src="https://purple-hyip.bugfinder.net/assets/uploads/logo/logo.png" alt="Hyippro"></a>
+                                                        <p class="company-bio">
+                                    We are a full service like readable english. Many desktop publishing packages and web page editor now use lorem Ipsum sites still in their.                            </p>
+                                                </div>
+                    </div>
     
+                    <div class="col-lg-3 col-md-6 ps-lg-5">
+                        <div class="footer-box">
+                            <h4>Useful Links</h4>
+                            <ul>
+                                <li>
+                                    <a href="https://purple-hyip.bugfinder.net">Home</a>
+                                </li>
+                                <li>
+                                    <a href="https://purple-hyip.bugfinder.net/about">About</a>
+                                </li>
+                                <li>
+                                    <a href="https://purple-hyip.bugfinder.net/plan">Plan</a>
+                                </li>
+                                <li>
+                                    <a href="https://purple-hyip.bugfinder.net/blog">Blog</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                                        <div class="col-lg-3 col-md-6 ps-lg-5">
+                            <div class="footer-box">
+                                <h4>Contact Us</h4>
+                                <ul>
+                                    <li>Address: <span>22 Baker Street, London</span></li>
+                                    <li>Email: <span>email@website.com</span></li>
+                                    <li>Phone: <span>+44-20-4526-2356</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                                                        <div class="col-lg-3 col-md-6">
+                            <div class="footer-box">
+                                <h4>Follow us on</h4>
+                                <div class="social-links">
+                                                                        <a href="https://www.facebook.com/" target="_blank" class="facebook">
+                                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                        </a>
+                                                                        <a href="https://twitter.com/" target="_blank" class="facebook">
+                                            <i class="fab fa-twitter" aria-hidden="true"></i>
+                                        </a>
+                                                                        <a href="https://bd.linkedin.com/" target="_blank" class="facebook">
+                                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                        </a>
+                                                                        <a href="https://www.instagram.com/" target="_blank" class="facebook">
+                                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                                        </a>
+                                                                </div>
+                            </div>
+                        </div>
+                                </div>
+                <div class="d-flex copyright justify-content-between">
+                    <div>
+                        <span> Copyright © 2023 Hyippro All Rights Reserved </span>
+                    </div>
+                                    <div class="text-md-end">
+                                                <a href="https://purple-hyip.bugfinder.net/language/US" class="language">English</a>
+                                                <a href="https://purple-hyip.bugfinder.net/language/IN" class="language">Hindi</a>
+                                                <a href="https://purple-hyip.bugfinder.net/language/ES" class="language">Spanish</a>
+                                        </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     <!-- Common scripts -->
     <script src="{{asset('darkpurple/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('darkpurple/js/jquery-3.6.0.min.js')}}">
