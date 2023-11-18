@@ -24,7 +24,7 @@
         </div>
        
         <div class="search-bar d-none" id="return_listar_cursos">
-            <a href="{{route('dashboard_index')}}"  class="btn btn-custom text-white btn-custom-rounded " role="button">Listar cursos</a>
+            <a href="{{route('listar_curso')}}"  class="btn btn-custom text-white btn-custom-rounded " role="button">Listar cursos</a>
         </div>
         <!-- table -->
         <div class="table-parent table-responsive">
@@ -187,5 +187,5 @@
     </div>
   </div>
 
-<script src="{{asset('js/cursos.js')}}"></script>
+<script src="{{asset('js/curso/cursos.js')}}"></script>
 @endsection

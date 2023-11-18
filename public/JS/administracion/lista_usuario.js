@@ -77,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch('/api/est_usu', {
                 method: 'PUT',
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({

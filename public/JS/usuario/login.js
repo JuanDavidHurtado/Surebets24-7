@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(result => {
                 button.disabled = false;
                 buttonSpinner.classList.add('d-none');
-                console.log("Login exitoso", result.body);
+                console.log(result.body)
             
                 if (!result || result.status !== 200) {
                     let errorMessage = result.body.message || 'Error desconocido';
@@ -37,10 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Almacenar el token después de un inicio de sesión exitoso
                 localStorage.setItem('token', result.body.token);
                 localStorage.setItem('rol', result.body.rol);
+                localStorage.setItem('idRol',result.body.idRol);
                 localStorage.setItem('idUsuario', result.body.idUsuario);
 
 
-                window.location.href = '/curso/lista';
+                window.location.href = '/home';
             })
             .catch(error => {
                 console.error('Error en la petición:', error);
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.removeItem('token');
                 localStorage.removeItem('rol');
                 localStorage.removeItem('idUsuario');
+                localStorage.removeItem('idRol')
                 
                 // Redirigir al usuario a la página de inicio de sesión o a la página principal
                 window.location.href = '/';

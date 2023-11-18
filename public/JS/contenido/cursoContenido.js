@@ -1,5 +1,15 @@
 function updateContentList(cursoId) {
-    fetch('/api/lista_contenido/' + cursoId)
+    fetch('/api/lista_contenido/' + cursoId,
+        { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+
+        }
+    )
     .then(response => response.json())
     .then(contenidos => {
         const contenidoTableBody = document.querySelector('#tabla-contenido-curso tbody');
@@ -54,7 +64,17 @@ document.addEventListener('DOMContentLoaded', function () {
     //listar contenido del curso 
     var tableMaterial = document.querySelector('.table.table-material tbody');
     if (tableMaterial) {
-        fetch('/api/lista_contenido/' + cursoId)
+        fetch('/api/lista_contenido/' + cursoId,
+        { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+
+        }
+        )
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -153,6 +173,8 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch('/api/agregar_contenido', { // Asegúrate de que esta URL sea correcta y accesible en tu aplicación
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },
@@ -217,6 +239,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             fetch('/api/agregar_material', {
                 method: 'POST',
+                headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
                 body: formData
             })
             .then(response => {

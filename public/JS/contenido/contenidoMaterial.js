@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/api/lista_material/' + contenidoId, {
         method: 'GET',
         headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         },

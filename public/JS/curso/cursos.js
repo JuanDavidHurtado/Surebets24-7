@@ -39,8 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                     data-bs-toggle="tooltip" data-bs-placement="top" title="Editar estado">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                 </button> 
-                            
-                            
                             </td>
                             <td>
                                 <button type="button"  class="btn btn-sm infoButton payoutHistoryBtn" data-bs-toggle="modal" 
@@ -69,7 +67,17 @@ document.addEventListener('DOMContentLoaded', function () {
                             var cursoId = this.getAttribute('data-id');
                             // Llamar a la API para obtener los contenidos del curso
 
-                            fetch('/api/lista_contenido/' + cursoId)
+                            fetch('/api/lista_contenido/' + cursoId,
+                            { 
+                                method: 'GET',
+                                headers: {
+                                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json',
+                                }
+                    
+                            }
+                            )
                                 .then(response => {
                                     if (!response.ok) {
                                         throw new Error('Network response was not ok');

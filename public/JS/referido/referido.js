@@ -21,8 +21,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    idUsuario= localStorage.getItem('idUsuario')
     // Utiliza la función fetch para realizar la petición fecth
-    fetch('/api/lista_referido')
+    fetch('/api/lista_referido/'+ idUsuario,
+    { 
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);

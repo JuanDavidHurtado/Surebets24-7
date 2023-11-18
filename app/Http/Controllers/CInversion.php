@@ -88,4 +88,14 @@ class CInversion extends Controller
             return response()->json(['status' => 500, 'message' => 'Error al agregar el registro de inversión: ' . $e->getMessage()], 500);
         }
     }
+    public function producto_usuario()
+    {
+        $sql = "SELECT * FROM usuario_inversion AS ui
+        
+        INNER JOIN inversion AS i ON i.idInversion = ui.inversion_idInversion
+        WHERE ui.usuario_idUsuario = '1'";
+        $data = DB::select($sql);
+
+        return response()->json($data);
+    }
 }

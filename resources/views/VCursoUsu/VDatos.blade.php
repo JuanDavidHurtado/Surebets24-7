@@ -101,6 +101,12 @@
             // Realiza una solicitud Fetch a una URL específica
             fetch('/api/agregar_curso_usuario', {
                     method: 'POST', // O el método que necesites
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
                     body: formData
                 })
                 .then(response => response.json())
@@ -133,7 +139,16 @@
 
         console.log(id);
         // Realizar la solicitud Fetch a tu API en api.php
-        fetch(`/api/seleccion_curso/${id}`)
+        fetch(`/api/seleccion_curso/${id}`,
+        { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+
+        })
             .then(response => {
                 if (!response.ok) {
                     // Si la respuesta no es 200 OK, lanza un error

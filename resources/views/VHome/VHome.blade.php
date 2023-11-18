@@ -13,4 +13,6 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('js/usuario/auth-redirect.js') }}"></script>
 @endsection

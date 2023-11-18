@@ -1,7 +1,21 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    if(localStorage.getItem('idUsuario')){
+        id = localStorage.getItem('idUsuario')
+    }
+    
     // Realizar la solicitud Fetch a tu API en api.php
-    fetch(`/api/mi_perfil`)
+    fetch(`/api/mi_perfil/`+ id,
+        { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+
+        } 
+    )
         .then(response => {
             if (!response.ok) {
                 // Si la respuesta no es 200 OK, lanza un error
@@ -58,12 +72,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Recolecta los datos del formulario
             const formData = new FormData(form_2);
-
+            formData.append('idUsu', id)
             // Realizar una solicitud Fetch para actualizar el usuario
             fetch('/api/actualizar_perfil', {
                 method: 'PUT', // Mantener el método PUT
                 body: JSON.stringify(Object.fromEntries(formData)), // Convierte FormData a un objeto y luego a JSON
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
             })
@@ -118,12 +134,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Recolecta los datos del formulario
             const formData = new FormData(form_3);
-
+            formData.append('id_usu',id)
             // Realizar una solicitud Fetch para actualizar el usuario
             fetch('/api/act_cont', {
                 method: 'PUT', // Mantener el método PUT
                 body: JSON.stringify(Object.fromEntries(formData)), // Convierte FormData a un objeto y luego a JSON
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
             })
@@ -176,10 +194,16 @@ document.addEventListener('DOMContentLoaded', function () {
         // Crea un objeto FormData y agrega el archivo a él
         const formData = new FormData();
         formData.append('imagen', selectedFile);
-
+        formData.append('id_usu', id)
         // Realizar una solicitud Fetch para actualizar la imagen del usuario
         fetch('/api/act_img', {
             method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
             body: formData,
         })
             .then(response => {

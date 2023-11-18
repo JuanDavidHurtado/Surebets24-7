@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Realiza una solicitud Fetch a una URL específica
         fetch('/api/agregar_metodo', {
                 method: 'POST', // O el método que necesites
+                 headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                },
                 body: formData
             })
             .then(response => response.json())
@@ -49,7 +53,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Realizar la solicitud Fetch a tu API en api.php
-    fetch(`/api/lista_metodo`)
+    fetch(`/api/lista_metodo`,
+    { 
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+
+    })
         .then(response => {
             if (!response.ok) {
                 // Si la respuesta no es 200 OK, lanza un error
@@ -58,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
             if (data.length > 0) {
                 // Mostrar mensaje en espera
                 //alert("Mayor a cero")
@@ -105,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fetch('/api/actualizar_metodo', {
                         method: 'PUT',
                         headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({

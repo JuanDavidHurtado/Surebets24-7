@@ -26,7 +26,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Utiliza la función fetch para realizar la petición fetch
-    fetch('/api/cur_usu')
+    fetch('/api/cur_usu',
+        { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+
+        } 
+    
+    )
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);

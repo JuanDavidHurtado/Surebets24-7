@@ -9,18 +9,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var mensajeUserReferido = document.getElementById('mensajeUserFerido')
         agregarUserReferidoForm.addEventListener('submit', function(e){
             e.preventDefault();
-
-            // Crear un objeto de fecha
-            var fecha = new Date();
-            // Formatear la fecha y la hora en el formato deseado: AAAA-MM-DD HH:MM:SS
-            var fechaFormato = fecha.getFullYear() + '-' +
-                ('0' + (fecha.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + fecha.getDate()).slice(-2) + ' ' +
-                ('0' + fecha.getHours()).slice(-2) + ':' +
-                ('0' + fecha.getMinutes()).slice(-2) + ':' +
-                ('0' + fecha.getSeconds()).slice(-2);
-            
-                button.disabled = true;
+           
+            button.disabled = true;
 
             if (buttonSpinner) {
                  buttonSpinner.classList.remove('d-none');
@@ -29,9 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
            
             var formData = new FormData(this);
-            var fecha = new Date();
-            const password = formData.get('password');
-            const passwordConfirmation = formData.get('password_confirmation');
+            const password = formData.get('clave');
+            const passwordConfirmation = formData.get('clave_confirmation');
 
               // Verifica si las contraseñas coinciden y si son válidas
               if (password !== passwordConfirmation) {
@@ -60,17 +49,18 @@ document.addEventListener('DOMContentLoaded', function () {
             //     return; // Detiene la ejecución adicional del manejador
             // }
             // Agregar el campo usuFecRegistro con la fecha y hora formateada a FormData
-            formData.append('usuFecRegistro', fechaFormato);
-            formData.append('usuPatrocinador', 1);
-            formData.append('rol_idRol', 1);
-            formData.append('estado_idEstado', 1);
+            idProtrocinador = localStorage.getItem('idUsuario')
+            formData.append('patrocinador', idProtrocinador);
+            
             for (var pair of formData.entries()) {
                 console.log(pair[0]+ ', ' + pair[1]); 
             }
 
-            fetch('/api/agregar_usuario_referido', { // Asegúrate de que esta URL sea correcta y accesible en tu aplicación
+            fetch('/api/registro_usuario_ref', { // Asegúrate de que esta URL sea correcta y accesible en tu aplicación
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Accept': 'application/json',
                     'X-Requested-With': 'XMLHttpRequest',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                 },

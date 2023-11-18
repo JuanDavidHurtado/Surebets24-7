@@ -122,128 +122,136 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a href="#submenuPendiente" data-toggle="collapse" class="sidebar-link collapsed">
-                        <i class="fal fa-thumbtack" aria-hidden="true"></i>
-                        <span>Admin. Pendiente</span>&nbsp
-                        <i class="fal fa-angle-right" aria-hidden="true"></i>
+                <div id="lista1" style="display: none;">
+                    <li class="sidebar-item">
+                        <a href="#submenuPendiente" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="fal fa-thumbtack" aria-hidden="true"></i>
+                            <span>Admin. Pendiente</span>&nbsp
+                            <i class="fal fa-angle-right" aria-hidden="true"></i>
 
-                    </a>
-                    <ul class="collapse list-unstyled" id="submenuPendiente">
-                        <li>
-                            <a href="{{route('pendiente_inversion')}}" class="sidebar-link">* Listar Inversion</a>
-                        </li>
-                        <li>
-                            <a href="{{route('pendiente_curso')}}" class="sidebar-link">* Listar Curso</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{{route('lista_comision_finalizar')}}" class="sidebar-link">
-                        <i class="fal fa-tag" aria-hidden="true"></i> Listar Comision </a>
-                </li>
-                <li>
-                    <a href="{{route('lista_usuario')}}" class="sidebar-link">
-                        <i class="fal fa-users" aria-hidden="true"></i> Admin. Usuarios </a>
-                </li>
-                <li>
-                    <a href="{{route('lista_inversion_finalizar')}}" class="sidebar-link">
-                        <i class="fal fa-business-time" aria-hidden="true"></i> Inversion a Finalizar </a>
-                </li>
+                        </a>
+                        <ul class="collapse list-unstyled" id="submenuPendiente">
+                            <li>
+                                <a href="{{route('pendiente_inversion')}}" class="sidebar-link">* Listar Inversion</a>
+                            </li>
+                            <li>
+                                <a href="{{route('pendiente_curso')}}" class="sidebar-link">* Listar Curso</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{route('lista_comision_finalizar')}}" class="sidebar-link">
+                            <i class="fal fa-tag" aria-hidden="true"></i> Listar Comision </a>
+                    </li>
+                    <li>
+                        <a href="{{route('lista_usuario')}}" class="sidebar-link">
+                            <i class="fal fa-users" aria-hidden="true"></i> Admin. Usuarios </a>
+                    </li>
+                    <li>
+                        <a href="{{route('lista_inversion_finalizar')}}" class="sidebar-link">
+                            <i class="fal fa-business-time" aria-hidden="true"></i> Inversion a Finalizar </a>
+                    </li>
 
-                <li class="sidebar-item">
-                    <a href="#submenuPlan" data-toggle="collapse" class="sidebar-link collapsed">
-                        <i class="fal fa-layer-group" aria-hidden="true"></i>
-                        <span>Productos</span>&nbsp
-                        <i class="fal fa-angle-right" aria-hidden="true"></i>
+                    <li class="sidebar-item">
+                        <a href="#submenuPlan" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="fal fa-layer-group" aria-hidden="true"></i>
+                            <span>Productos</span>&nbsp
+                            <i class="fal fa-angle-right" aria-hidden="true"></i>
 
-                    </a>
-                    <ul class="collapse list-unstyled" id="submenuPlan">
-                        <li>
-                            <a href="{{route('listar_producto')}}" class="sidebar-link">Listar Productos</a>
-                        </li>
-                        <li>
-                            <a href="{{route('agregar_producto')}}" class="sidebar-link">Agregar Producto</a>
-                        </li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="collapse list-unstyled" id="submenuPlan">
+                            <li>
+                                <a href="{{route('listar_producto')}}" class="sidebar-link">Listar Productos</a>
+                            </li>
+                            <li>
+                                <a href="{{route('agregar_producto')}}" class="sidebar-link">Agregar Producto</a>
+                            </li>
+                        </ul>
+                    </li>
 
 
-                <li class="sidebar-item">
-                    <a href="#submenuCursos" data-toggle="collapse" class="sidebar-link collapsed">
-                        <i class="fal fa-badge" aria-hidden="true"></i>
-                        <span>Cursos</span>&nbsp
-                        <i class="fal fa-angle-right" aria-hidden="true"></i>
+                    <li class="sidebar-item">
+                        <a href="#submenuCursos" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="fal fa-badge" aria-hidden="true"></i>
+                            <span>Cursos</span>&nbsp
+                            <i class="fal fa-angle-right" aria-hidden="true"></i>
 
-                    </a>
-                    <ul class="collapse list-unstyled" id="submenuCursos">
-                        <li>
-                            <a href="{{route('listar_curso')}}" class="sidebar-link">* Listar Cursos</a>
-                        </li>
-                        <li>
-                            <a href="{{route('agregar_curso')}}" class="sidebar-link">Agregar Cursos</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#submenuTienda" data-toggle="collapse" class="sidebar-link collapsed">
-                        <i class="fal fa-shopping-bag" aria-hidden="true"></i>
-                        <span>Tienda</span>&nbsp
-                        <i class="fal fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                        <ul class="collapse list-unstyled" id="submenuCursos">
+                            <li>
+                                <a href="{{route('listar_curso')}}" class="sidebar-link">* Listar Cursos</a>
+                            </li>
+                            <li>
+                                <a href="{{route('agregar_curso')}}" class="sidebar-link">Agregar Cursos</a>
+                            </li>
+                        </ul>
+                    </li>
 
-                    </a>
-                    <ul class="collapse list-unstyled" id="submenuTienda">
-                        <li>
-                            <a href="{{route('lista_inversion')}}" class="sidebar-link">* Inversion</a>
-                        </li>
-                        <li>
-                            <a href="{{route('lista_curso')}}" class="sidebar-link">* Curso</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#submenuHistorial" data-toggle="collapse" class="sidebar-link collapsed">
-                        <i class="fal fa-history" aria-hidden="true"></i>
-                        <span>Admin. Historial</span>&nbsp
-                        <i class="fal fa-angle-right" aria-hidden="true"></i>
+                </div>
 
-                    </a>
-                    <ul class="collapse list-unstyled" id="submenuHistorial">
-                        <li>
-                            <a href="{{route('historial_inversion')}}" class="sidebar-link">* His. Inversion</a>
-                        </li>
-                        <li>
-                            <a href="{{route('historial_curso')}}" class="sidebar-link">* His. Curso</a>
-                        </li>
-                    </ul>
-                </li>
+                <div id="lista2" style="display: none;">
 
-                <li class="sidebar-item">
-                    <a href="#submenuReferido" data-toggle="collapse" class="sidebar-link collapsed">
-                        <i class="fal fa-users" aria-hidden="true"></i>
-                        <span>Referidos</span>&nbsp
-                        <i class="fal fa-angle-right" aria-hidden="true"></i>
+                    <li class="sidebar-item">
+                        <a href="#submenuTienda" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="fal fa-shopping-bag" aria-hidden="true"></i>
+                            <span>Tienda</span>&nbsp
+                            <i class="fal fa-angle-right" aria-hidden="true"></i>
 
-                    </a>
-                    <ul class="collapse list-unstyled" id="submenuReferido">
-                        <li>
-                            <a href="{{route('lista_referido')}}" class="sidebar-link">Listar referidos</a>
-                        </li>
-                        <li>
-                            <a href="{{route('agregar_referido')}}" class="sidebar-link">Agregar referido</a>
-                        </li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="collapse list-unstyled" id="submenuTienda">
+                            <li>
+                                <a href="{{route('lista_inversion')}}" class="sidebar-link">* Inversion</a>
+                            </li>
+                            <li>
+                                <a href="{{route('lista_curso')}}" class="sidebar-link">* Curso</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#submenuHistorial" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="fal fa-history" aria-hidden="true"></i>
+                            <span>Admin. Historial</span>&nbsp
+                            <i class="fal fa-angle-right" aria-hidden="true"></i>
 
-                <li>
-                    <a href="{{route('lista_comision')}}" class="sidebar-link">
-                        <i class="fal fa-money-bill" aria-hidden="true"></i> Bono de Referencia </a>
-                </li>
-                <li>
-                    <a href="{{route('metodo_pago')}}" class="sidebar-link">
-                        <i class="fal fa-credit-card" aria-hidden="true"></i> Metodo de Pago </a>
-                </li>
+                        </a>
+                        <ul class="collapse list-unstyled" id="submenuHistorial">
+                            <li>
+                                <a href="{{route('historial_inversion')}}" class="sidebar-link">* His. Inversion</a>
+                            </li>
+                            <li>
+                                <a href="{{route('historial_curso')}}" class="sidebar-link">* His. Curso</a>
+                            </li>
+                        </ul>
+                    </li>
 
+                    <li class="sidebar-item">
+                        <a href="#submenuReferido" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="fal fa-users" aria-hidden="true"></i>
+                            <span>Referidos</span>&nbsp
+                            <i class="fal fa-angle-right" aria-hidden="true"></i>
+
+                        </a>
+                        <ul class="collapse list-unstyled" id="submenuReferido">
+                            <li>
+                                <a href="{{route('lista_referido')}}" class="sidebar-link">Listar referidos</a>
+                            </li>
+                            <li>
+                                <a href="{{route('agregar_referido')}}" class="sidebar-link">Agregar referido</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="{{route('lista_comision')}}" class="sidebar-link">
+                            <i class="fal fa-money-bill" aria-hidden="true"></i> Bono de Referencia </a>
+                    </li>
+                    <li>
+                        <a href="{{route('metodo_pago')}}" class="sidebar-link">
+                            <i class="fal fa-credit-card" aria-hidden="true"></i> Metodo de Pago </a>
+                    </li>   
+
+                
+                </div>
 
                 <li>
                     <a href="{{route('perfil')}}" class="sidebar-link ">
@@ -305,6 +313,7 @@
 
         <!-- arrow up -->
         <a href="#" class="scroll-up" style="display: none;"><i class="fal fa-long-arrow-up" aria-hidden="true"></i> </a>
+        <script src="{{ asset('js/usuario/auth-redirect.js') }}"></script>
 
         <script src="{{asset('js/usuario/login.js')}}"></script>
         <script src="{{asset('darkpurple/js/bootstrap.bundle.min.js')}}"></script>

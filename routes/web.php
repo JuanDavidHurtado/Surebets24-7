@@ -37,11 +37,6 @@ Route::get('/registro', function () {
     return view('auth/register');
 })->name('register');
 
-// Cursos
-Route::get('/dashboard_index', function () {
-    return view('VCursos/VListar');
-})->name('dashboard_index');
-
 
 //cursos
 Route::prefix('curso')->group(function () {
@@ -113,8 +108,10 @@ Route::view('/metodo_pago', 'VMetodo.VListar')->name('metodo_pago');
 //Metodo de Pago
 Route::view('/perfil', 'VUsuario.VPerfil')->name('perfil');
 
+
+
 //Home
-Route::view('/home', 'VHome.VHome')->name('home');
+Route::view('/home', 'VHome.VHome')->name('home_dashboard');
 
 //Pendiente curso
 Route::view('/pendiente_curso', 'VPendiente.VListarCur')->name('pendiente_curso');

@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Hash;
 
 class CReferido extends Controller
 {
-    public function listar()
+    public function listar($id)
     {
-        $id = 1;
+      
         $sql = "
     SELECT *
     FROM usuario AS u
     INNER JOIN estado AS est ON est.idEstado = u.estado_idEstado
+    INNER JOIN rol AS r ON r.idRol = u.rol_idRol
     WHERE u.usuPatrocinador = $id
 ";
         $data = DB::select($sql);

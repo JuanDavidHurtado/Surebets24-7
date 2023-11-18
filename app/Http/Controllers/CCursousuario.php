@@ -120,4 +120,15 @@ class CCursousuario extends Controller
             return response()->json(['status' => 500, 'message' => 'Error al agregar el registro del curso: ' . $e->getMessage()], 500);
         }
     }
+
+    public function curso_usuario()
+    {
+        $sql = "SELECT * FROM usuario_curso AS uc
+        
+        INNER JOIN curso AS c ON c.idCurso = uc.curso_idCurso
+        WHERE uc.usuario_idUsuario = '1'";
+        $data = DB::select($sql);
+
+        return response()->json($data);
+    }
 }

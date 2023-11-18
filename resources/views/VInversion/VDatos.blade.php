@@ -94,6 +94,12 @@
             // Realiza una solicitud Fetch a una URL específica
             fetch('/api/agregar_inversion', {
                     method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
                     body: formData
                 })
                 .then(response => response.json())
@@ -124,9 +130,19 @@
         // Obtener el valor de ID de tu formulario
         const id = document.getElementById('id_pro').value;
 
-        console.log(id);
         // Realizar la solicitud Fetch a tu API en api.php
-        fetch(`/api/seleccion/${id}`)
+        fetch(`/api/seleccion/${id}`,
+        { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+
+        }
+        
+        )
             .then(response => {
                 if (!response.ok) {
                     // Si la respuesta no es 200 OK, lanza un error

@@ -81,9 +81,9 @@ class CUsuario extends Controller
         }
     }
 
-    public function perfil()
+    public function perfil($id)
     {
-        $id = 1; 
+         
         $sql = "
         SELECT u.*, r.*, i.imgArchivo
         FROM usuario AS u
@@ -117,7 +117,7 @@ class CUsuario extends Controller
     public function actualizar_datos(Request $request)
     {
         try {
-            $id_usu = 1;
+            $id_usu = $request->input('idUsu');
             $documento = $request->input('documento');
             $nombre = $request->input('nombre');
             $apellido = $request->input('apellido');
@@ -149,7 +149,7 @@ class CUsuario extends Controller
     public function actualizar_contrasena(Request $request)
     {
         try {
-            $id_usu = 1;
+            $id_usu = $request->input('id_usu');
             $pwd = Hash::make($request->input('clave'));
 
 
@@ -170,7 +170,7 @@ class CUsuario extends Controller
     public function actualizar_imagen(Request $request)
     {
         try {
-            $id_usu = 1;
+            $id_usu = $request->input('id_usu');
 
             // Iniciar la transacción
             DB::beginTransaction();
@@ -222,9 +222,10 @@ class CUsuario extends Controller
                     }
                     // Verifica si el usuario existe y si la contraseña coincide
                     if ($user && Hash::check($request->usuClave, $user->usuClave)) {
+
                         // La autenticación fue exitosa, genera el token
                         $token = $user->createToken('NombreDelToken')->plainTextToken;
-                        return response()->json(['token' => $token, 'rol' => $user->rolNombre,'idUsuario'=> $user->idUsuario], 200);
+                        return response()->json(['token' => $token,'idRol'=>$user->rol_idRol, 'rol' => $user->rolNombre,'idUsuario'=> $user->idUsuario], 200);
                     } else {
                         // Autenticación fallida
                         return response()->json(['message' => 'Credenciales no válidas'], 401);
