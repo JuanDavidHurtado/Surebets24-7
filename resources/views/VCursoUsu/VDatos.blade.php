@@ -52,7 +52,20 @@
                     </form>
                 </div>
             </div>
+
             <div class="col-lg-6 mb-4">
+                <section class="faq-section faq-page">
+                    <div class="container">
+                        <div class="col-lg-12">
+                            <div class="accordion" id="accordionExample">
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!--div class="col-lg-6 mb-4">
                 <div class="search-bar">
                     <span>Contenido</span>
                     <hr>
@@ -65,11 +78,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Las filas se agregarán aquí -->
+                           
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div-->
         </div>
     </div>
 </div>
@@ -84,7 +97,7 @@
 
             // Recolecta los datos del formulario
             const formData = new FormData(form);
-
+            
             // Realiza una solicitud Fetch a una URL específica
             fetch('/api/agregar_curso_usuario', {
                     method: 'POST', // O el método que necesites
@@ -93,7 +106,7 @@
                 .then(response => response.json())
                 .then(data => {
 
-                    //console.log(data);
+                    console.log(data);
                     if (data.status === 201) {
                         const Message = data.message;
                         const redirectUrl = `{{ route('lista_curso') }}?Message=${encodeURIComponent(Message)}`;
@@ -129,25 +142,87 @@
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                console.log(data.resultados);
                 // Actualizar los campos del formulario con los datos recibidos
-                document.getElementById('nombre').value = data[0].curNombre;
-                document.getElementById('valor').value = data[0].curValor + ' USD';
+                document.getElementById('nombre').value = data.data[0].curNombre;
+                document.getElementById('valor').value = data.data[0].curValor + ' USD';
 
-                // Aquí manejas la respuesta. Por ejemplo, podrías llenar una tabla con los datos.
-                const tableBody = document.querySelector('.table.table-striped tbody');
-                tableBody.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
-                data.forEach((curso, index) => {
+                // Aquí manejas la respuesta para construir el acordeón.
+                const accordion = document.querySelector('.accordion');
+                accordion.innerHTML = ''; // Limpiar el acordeón antes de agregar nuevos datos
 
-                    console.log(curso);
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${curso.conNombre}</td>
-                <td><span class="badge ${curso.conEstado === 'ACTIVO' ? 'bg-success' : 'bg-warning'}">${curso.conEstado}</span></td>     
-            `;
-                    tableBody.appendChild(row);
+                data.resultados.forEach((curso, index) => {
+                    // Crear el encabezado del acordeón para cada curso
+                    const accordionItem = document.createElement('div');
+                    accordionItem.className = 'accordion-item';
+
+                    const accordionHeader = document.createElement('h5');
+                    accordionHeader.className = 'accordion-header';
+                    accordionHeader.id = `heading${index + 1}`;
+
+                    const accordionButton = document.createElement('button');
+                    accordionButton.className = 'accordion-button collapsed';
+                    accordionButton.type = 'button';
+                    accordionButton.dataset.bsToggle = 'collapse';
+                    accordionButton.dataset.bsTarget = `#collapse${index + 1}`;
+                    accordionButton.setAttribute('aria-expanded', 'false');
+                    accordionButton.setAttribute('aria-controls', `collapse${index + 1}`);
+                    accordionButton.innerHTML = `${curso.curso.conNombre}`;
+
+                    accordionHeader.appendChild(accordionButton);
+                    accordionItem.appendChild(accordionHeader);
+
+                    // Crear el cuerpo del acordeón para mostrar los materiales
+                    const accordionCollapse = document.createElement('div');
+                    accordionCollapse.id = `collapse${index + 1}`;
+                    accordionCollapse.className = 'accordion-collapse collapse';
+                    accordionCollapse.setAttribute('aria-labelledby', `heading${index + 1}`);
+                    accordionCollapse.dataset.bsParent = '#accordionExample';
+
+                    const accordionBody = document.createElement('div');
+                    accordionBody.className = 'accordion-body';
+
+                    // Agregar tabla para mostrar los materiales
+                    const table = document.createElement('table');
+                    table.className = 'table table-bordered';
+
+                    // Crear encabezado de la tabla
+                    const tableHeader = document.createElement('thead');
+                    const headerRow = document.createElement('tr');
+                    const headerCell1 = document.createElement('th');
+                    headerCell1.textContent = '#';
+                    const headerCell2 = document.createElement('th');
+                    headerCell2.textContent = 'Nombre';
+
+                    headerRow.appendChild(headerCell1);
+                    headerRow.appendChild(headerCell2);
+                    tableHeader.appendChild(headerRow);
+                    table.appendChild(tableHeader);
+
+                    const tableBody = document.createElement('tbody');
+
+                    curso.materiales.forEach((material, materialIndex) => {
+                        const row = document.createElement('tr');
+                        const cell1 = document.createElement('td');
+                        const cell2 = document.createElement('td');
+
+                        cell1.textContent = materialIndex + 1;
+                        cell2.textContent = material.matNombre;
+
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                        tableBody.appendChild(row);
+                    });
+
+                    table.appendChild(tableBody);
+                    accordionBody.appendChild(table);
+
+                    accordionCollapse.appendChild(accordionBody);
+                    accordionItem.appendChild(accordionCollapse);
+
+                    accordion.appendChild(accordionItem);
                 });
+
             })
             .catch(error => {
                 console.error('Error fetching data: ', error);

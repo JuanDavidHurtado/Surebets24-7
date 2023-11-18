@@ -26,7 +26,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Utiliza la función fetch para realizar la petición fetch
-    fetch('/api/lis_inv')
+    fetch('/api/lis_inv',
+    { 
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+
+    } )
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
@@ -69,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch('/api/est_inv', {
                     method: 'PUT',
                     headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({

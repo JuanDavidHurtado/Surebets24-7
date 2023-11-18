@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             }
-           
-        
+
         }) // Asegúrate de que la URL es correcta y tiene el prefijo '/api' si es necesario
         .then(response => {
                     if (!response.ok) {
@@ -180,6 +179,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 fetch('/api/agregar_contenido', { // Asegúrate de que esta URL sea correcta y accesible en tu aplicación
                     method: 'POST',
                     headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Accept': 'application/json',
                         'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
@@ -241,6 +242,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Por ejemplo, una petición fetch a una API
             fetch('/api/agregar_curso', {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
                 body: formData
             })
             .then(response => {
@@ -331,6 +338,8 @@ document.addEventListener('DOMContentLoaded', function () {
            fetch('/api/actualizar_curso', { // Asegúrate de que esta URL sea correcta y accesible en tu aplicación
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },

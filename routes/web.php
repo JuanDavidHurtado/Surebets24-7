@@ -42,6 +42,7 @@ Route::get('/dashboard_index', function () {
     return view('VCursos/VListar');
 })->name('dashboard_index');
 
+
 //cursos
 Route::prefix('curso')->group(function () {
     Route::get('/agregar', function () {
@@ -86,17 +87,7 @@ Route::prefix('producto')->group(function () {
 });
 
 
-// Rutas protegidas con Sanctum
-Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('producto')->group(function () {
-        Route::get('/listar', function () {
-            return view('VProductos.VListar');
-        })->name('listar_producto');
-        Route::get('/agregar', function () {
-            return view('VProductos.VAgregar');
-        })->name('agregar_producto');
-    });
-});
+
 
 
 //Lista Referido

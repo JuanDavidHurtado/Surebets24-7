@@ -29,14 +29,6 @@ class CInversion extends Controller
     {
         DB::beginTransaction();
 
-        /*$id = 2;
-
-        $sql = "SELECT * FROM usuario AS u
-        WHERE u.idUsuario = '$id'";
-        $data = DB::select($sql);
-
-        dd($data[0]->usuPatrocinador);*/
-
         try {
             $fecha_pago = $request->input('fecha_pago');
             $hash = $request->input('hash');
@@ -46,7 +38,7 @@ class CInversion extends Controller
                 'pagHash' => $hash
             ]);
 
-            $usuario = $request->input('id_usu');
+            $usuario = 2; //id inicio sesion
             $producto = $request->input('id_pro');
             $fecha_inicio = date('Y-m-d');
             $dias = $request->input('dias');
@@ -61,10 +53,11 @@ class CInversion extends Controller
                 'pago_idPago' => $idPagoInsertado
             ]);
 
-            $id = 2;
 
             $sql = "SELECT * FROM usuario AS u
-            WHERE u.idUsuario = '$id'";
+            WHERE 
+            u.usuPatrocinador IS NOT NULL AND
+            u.idUsuario = '$usuario'";
             $data = DB::select($sql);
 
             if (sizeof($data) > 0) {
@@ -80,13 +73,19 @@ class CInversion extends Controller
                 VALUES (?,?,?)', [$vl_com, $data[0]->usuPatrocinador, $idInvInsertado]);
             }
 
-
             DB::commit(); // Confirma la transacción
 
-            return response()->json(['message' => 'Inversión agregada con éxito'], 201);
+
+            return response()->json(['status' => 201, 'message' => '
+        Estamos encantados de confirmar que su 
+        inversión ha sido registrada de manera exitosa en nuestro sistema. 
+        Le agradecemos por su confianza y esperamos que este sea el comienzo de una asociación 
+        financiera exitosa. Si tiene alguna pregunta o necesita asistencia adicional, 
+        no dude en ponerse en contacto con nuestro equipo de soporte. 
+        ¡Gracias por elegirnos como su socio en inversiones.'], 201);
         } catch (\Exception $e) {
             DB::rollBack(); // Revierte la transacción en caso de error
-            return response()->json(['message' => 'Error al agregar el registro de inversión: ' . $e->getMessage()], 500);
+            return response()->json(['status' => 500, 'message' => 'Error al agregar el registro de inversión: ' . $e->getMessage()], 500);
         }
     }
 }

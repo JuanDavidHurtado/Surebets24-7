@@ -47,17 +47,49 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Referido
 Route::get('/lista_referido', [CReferido::class, 'listar'])->name('lista_referido');
 
+
+
+Route::middleware('auth:sanctum')->group(function () {
+
+//Curso(Parametrizacion)
+Route::get('/lista_curso', [CCurso::class, 'listar'])->name('lista_curso');
+Route::post('/agregar_curso', [CCurso::class, 'agregar'])->name('agregar_curso');
+Route::post('/actualizar_curso', [CCurso::class, 'estado'])->name('actualizar_curso');
+
 //Inversiones(Parametrizacion)
 Route::get('/lista_producto', [CProducto::class, 'listar'])->name('lista_producto');
 Route::post('/agregar_producto', [CProducto::class, 'agregar'])->name('agregar_producto');
 Route::put('/actualizar_producto', [CProducto::class, 'estado'])->name('actualizar_producto');
 
-//Curso(Parametrizacion)
-Route::middleware('auth:sanctum')->group(function () {
-Route::get('/lista_curso', [CCurso::class, 'listar'])->name('lista_curso');
-Route::post('/agregar_curso', [CCurso::class, 'agregar'])->name('agregar_curso');
-Route::post('/actualizar_curso', [CCurso::class, 'estado'])->name('actualizar_curso');
+//Pendiente y Administracion
+Route::get('/lis_usu', [CAdministracion::class, 'listar_usuario'])->name('lis_usu');
+Route::get('/lis_inv', [CAdministracion::class, 'listar_inversion_actual'])->name('lis_inv');
+Route::put('/est_inv', [CAdministracion::class, 'estado_inversion'])->name('est_inv');
+
+
+
+//Usuario Inversion
+Route::get('/lista_inversion', [CInversion::class, 'listar'])->name('lista_inversion');
+Route::get('/seleccion/{id}', [CInversion::class, 'seleccion_plan'])->name('seleccion_inversion');
+
+
+
+
+
+//Usuario curso
+Route::get('/lista_curso_usuario', [CCursousuario::class, 'listar'])->name('lista_curso_usuario');
+
+
 });
+
+
+
+
+
+
+
+
+
 
 //Contenido(Parametrizacion)
 Route::get('/lista_contenido/{id}', [CContenido::class, 'listar'])->name('lista_contenido');
@@ -70,13 +102,11 @@ Route::get('/lista_material/{id}', [CContenidoMaterial::class, 'listar'])->name(
 
 
 //Usuario Inversion
-Route::get('/lista_inversion', [CInversion::class, 'listar'])->name('lista_inversion');
-Route::get('/seleccion/{id}', [CInversion::class, 'seleccion_plan'])->name('seleccion_inversion');
 Route::post('/agregar_inversion', [CInversion::class, 'agregar'])->name('agregar_inversion');
+
 Route::get('/pro_usu', [CInversion::class, 'producto_usuario'])->name('pro_usu');
 
 //Usuario curso
-Route::get('/lista_curso_usuario', [CCursousuario::class, 'listar'])->name('lista_curso_usuario');
 Route::get('/seleccion_curso/{id}', [CCursousuario::class, 'seleccion_curso'])->name('seleccion_curso');
 Route::post('/agregar_curso_usuario', [CCursousuario::class, 'agregar'])->name('agregar_curso_usuario');
 Route::get('/cur_usu', [CCursousuario::class, 'curso_usuario'])->name('cur_usu');
@@ -96,9 +126,6 @@ Route::post('/act_img', [CUsuario::class, 'actualizar_imagen'])->name('act_img')
 Route::get('/pendiente_curso', [CAdministracion::class, 'listar_curso'])->name('pendiente_curso');
 Route::get('/pendiente_inversion', [CAdministracion::class, 'listar_inversion'])->name('pendiente_inversion');
 Route::get('/pendiente_comision', [CAdministracion::class, 'listar_comision'])->name('pendiente_comision');
-Route::get('/lis_usu', [CAdministracion::class, 'listar_usuario'])->name('lis_usu');
-Route::get('/lis_inv', [CAdministracion::class, 'listar_inversion_actual'])->name('lis_inv');
-Route::put('/est_inv', [CAdministracion::class, 'estado_inversion'])->name('est_inv');
 Route::put('/est_cur', [CAdministracion::class, 'estado_curso'])->name('est_cur');
 Route::put('/est_usu', [CAdministracion::class, 'estado_usuario'])->name('est_usu');
 Route::put('/est_com', [CAdministracion::class, 'estado_comision'])->name('est_com');

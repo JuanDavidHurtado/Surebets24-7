@@ -8,7 +8,16 @@ document.addEventListener('DOMContentLoaded', function () {
         "Experto": "63b2b77635d571672656758.png" // Asumiendo que esta es la imagen correcta para "Experto"
     };
     if (cardProductos) {
-        fetch('/api/lista_producto/')
+        fetch('/api/lista_producto/',
+        { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+        )
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -80,6 +89,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Por ejemplo, una petición fetch a una API
             fetch('/api/agregar_producto', {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
                 body: formData
             })
             .then(response => {

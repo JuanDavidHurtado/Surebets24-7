@@ -1,6 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Utiliza la función fetch para realizar la petición AJAX
-    fetch('/api/lista_inversion') // Asegúrate de que la URL es correcta y tiene el prefijo '/api' si es necesario
+    fetch('/api/lista_inversion',
+    { 
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+ 
+    }
+
+    ) // Asegúrate de que la URL es correcta y tiene el prefijo '/api' si es necesario
         .then(response => {
             if (!response.ok) {
                 // Si la respuesta no es 200 OK, lanza un error

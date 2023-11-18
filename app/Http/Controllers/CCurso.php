@@ -30,6 +30,10 @@ class CCurso extends Controller
     
             return response()->json(['message' => 'Curso agregado con éxito'], 201);
         } catch (\Exception $e) {
+            Log::error('Error al agregar material', [
+                'error' => $e->getMessage(),
+                'request' => $request->all()  // Incluir la información del request para depuración
+            ]);
             return response()->json(['message' => 'Error al agregar el curso: ' . $e->getMessage()], 500);
         }
     }
