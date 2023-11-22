@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\NewAccessToken;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Mail;
 
 class CUsuario extends Controller
 {
@@ -207,25 +210,30 @@ class CUsuario extends Controller
 
 
     public function login(Request $request)
-        {
+    {
             try {
                     // Obtén el usuario por usuLogin
                     // $user = Usuario::where('usuLogin', $request->usuLogin)->first();
                     // Obtén el usuario y el rol por usuLogin
                     $user = Usuario::join('rol', 'usuario.rol_idRol', '=', 'rol.idRol')
                     ->where('usuario.usuLogin', $request->usuLogin)
-                    ->first(['usuario.*', 'rol.rolNombre as rolNombre']);
+                    ->first(['usuario.*', 'rol.*']);
 
                     if (!$user) {
                         // Usuario no existe
                         return response()->json(['message' => 'Usuario no encontrado'], 404);
+                    }
+
+                     // Verificar si el usuario está inactivo
+                    if ($user->estado_idEstado == 2) {
+                        return response()->json(['message' => 'Usuario inactivo'], 403); // 403 o cualquier otro código de estado apropiado
                     }
                     // Verifica si el usuario existe y si la contraseña coincide
                     if ($user && Hash::check($request->usuClave, $user->usuClave)) {
 
                         // La autenticación fue exitosa, genera el token
                         $token = $user->createToken('NombreDelToken')->plainTextToken;
-                        return response()->json(['token' => $token,'idRol'=>$user->rol_idRol, 'rol' => $user->rolNombre,'idUsuario'=> $user->idUsuario], 200);
+                        return response()->json(['token' => $token,'nombre'=>$user->usuNombre. ' ' . $user->usuApellido,'usuario'=> $user->usuLogin, 'idRol'=>$user->rol_idRol, 'rol' => $user->rolNombre,'idUsuario'=> $user->idUsuario,'nivel'=> $user->rolDescripcion], 200);
                     } else {
                         // Autenticación fallida
                         return response()->json(['message' => 'Credenciales no válidas'], 401);
@@ -234,16 +242,54 @@ class CUsuario extends Controller
                 Log::error('Error durante el proceso de login', ['error' => $e->getMessage()]);
                 return response()->json(['message' => 'Error en el servidor', 'error' => $e->getMessage()], 500);
             }
-        }
+    }
 
     
     
-        public function logout(Request $request)
+    public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
 
         return response()->json(['message' => 'Sesión cerrada con éxito']);
     }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        try {
+            $request->validate(['email' => 'required|email']);
+
+            $user = Usuario::where('usuCorreo', $request->email)->first();
+
+            if (!$user) {
+                return response()->json(['message' => 'Correo no encontrado'], 404);
+            }
+
+            $token = Str::random(60);
+            // Aquí, debes guardar el token en una tabla adecuada, como password_resets
+
+            $url = url('/reset-password/' . $token); // URL de tu frontend para restablecer la contraseña
+            
+            // Guardas el email y el token en la tabla password_resets
+            DB::table('password_resets')->insert([
+                'email' => $user->usuCorreo,
+                'token' => $token,
+                'created_at' => now()
+            ]);
+            Mail::send('emails.passwordReset', ['url' => $url], function ($message) use ($user) {
+                $message->to($user->usuCorreo);
+                $message->subject('Notificación de restablecimiento de contraseña');
+            });
+
+            return response()->json(['message' => 'Hemos enviado por correo electrónico el enlace para restablecer la contraseña']);
+        } catch (\Exception $e) {
+            Log::error('Error durante el proceso de envío de correo electrónico para restablecer la contraseña', 
+            ['error' => $e->getMessage(),
+            'request' => $request->all()
+            ]);
+            return response()->json(['message' => 'Error en el servidor', 'error' => $e->getMessage()], 500);
+        }
+    }
+
 }
 
 

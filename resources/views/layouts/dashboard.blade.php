@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('darkpurple/css/select2.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('darkpurple/css/style_dashboard.css')}}">
     <script src="{{asset('darkpurple/js/modernizr.custom.js')}}"></script>
-
+   
  
 </head>
 
@@ -96,8 +96,8 @@
                         <img class="img-fluid user-img" src="https://purple-hyip.bugfinder.net/assets/admin/images/default.png" alt="...">
                     </div>
                     <div class="content">
-                        <h5 class="mt-1 mb-1">Alex Hales</h5>
-                        <span class="">demouser</span>
+                        <h5 class="mt-1 mb-1" id="nombre_usuario"></h5>
+                       
                     </div>
                 </div>
                 <button class="sidebar-toggler d-lg-none" onclick="toggleSideMenu()">
@@ -108,8 +108,8 @@
 
             <div class="level-wrapper">
                 <div class="level-box">
-                    <h4>Lavel 4</h4>
-                    <p>Hyip Victor</p>
+                    <h4 id="nivel_usuario"></h4>
+                    <p id="usuario"></p>
                     <img src="https://purple-hyip.bugfinder.net/assets/uploads/rank/63b2b77635d571672656758.png" alt="level image" class="level-badge">
                 </div>
             </div>
@@ -286,8 +286,10 @@
 
 
                     </div>
+              
+                    
                     <div class="user-panel d-none d-lg-inline-block">
-                        <span class="profile"><img src="https://purple-hyip.bugfinder.net/assets/admin/images/default.png" alt="user img" class="img-fluid"></span>
+                        <span class="profile"> <img src="https://purple-hyip.bugfinder.net/assets/admin/images/default.png" alt="user img" class="img-fluid"></span>
                         <ul class="user-dropdown">
                             <li><a href="#"><i aria-hidden="true" class="fal fa-border-all"></i> Dashboard
                                 </a>

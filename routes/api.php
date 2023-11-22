@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/registro_usuario', [CUsuario::class, 'registro'])->name('registro_usuario');
 Route::post('/login', [CUsuario::class, 'login'])->name('login');
+Route::post('enviar_correo', [CUsuario::class, 'sendResetLinkEmail'])->name('enviar_correo');
 
 
 
@@ -66,6 +67,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //Material Contenido(parametrizacion)
     Route::post('/agregar_material', [CContenidoMaterial::class, 'agregar'])->name('agregar_material');
     Route::get('/lista_material/{id}', [CContenidoMaterial::class, 'listar'])->name('lista_material');
+    Route::get('/lista_material/{id}', [CContenidoMaterial::class, 'listar'])->name('lista_material');
+    Route::get('/showMaterial/{idMaterial}' ,[CContenidoMaterial::class, 'showMaterial'])->name('showMaterial');
 
     //Inversiones(Parametrizacion)
     Route::get('/lista_producto', [CProducto::class, 'listar'])->name('lista_producto');

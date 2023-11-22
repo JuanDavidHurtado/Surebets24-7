@@ -30,21 +30,21 @@
                                     <h4>Registro de usuario</h4>
                                 </div>
                                 <div class="input-box col-md-6">
-                                    <input type="text" name="documento" class="form-control" value="" placeholder="No Documento" required>
+                                    <input type="text" name="documento" class="form-control" value="" placeholder="No Documento" required  autocomplete="off">
                                 </div>
                              
                                 <div class="input-box col-md-6">
-                                    <input type="text" name="login" class="form-control" value="" placeholder="Username" required>
+                                    <input type="text" name="login" class="form-control" value="" placeholder="Usuario" required autocomplete="off">
                                 </div>
                               
                                 <div class="input-box col-md-6">
-                                    <input type="text" name="nombre" class="form-control" value="" placeholder="Nombre(s)" required>
+                                    <input type="text" name="nombre" class="form-control" value="" placeholder="Nombre(s)" required autocomplete="off">
                                 </div>
                                 <div class="input-box col-md-6">
-                                    <input type="text" name="apellido" class="form-control" value="" placeholder="Apellido(s)" required>
+                                    <input type="text" name="apellido" class="form-control" value="" placeholder="Apellido(s)" required autocomplete="off">
                                 </div>
                                 <div class="input-box col-md-6">
-                                    <input type="email" name="correo" class="form-control" value="" placeholder="Correo electronico" required>
+                                    <input type="email" name="correo" class="form-control" value="" placeholder="Correo electronico" required autocomplete="off">
                                 </div>
                                 {{-- <div class="input-box col-md-6">
                                     <input type="text" name="usuCodigo" class="form-control" value="" placeholder="Codigo" required>
@@ -54,29 +54,31 @@
                                     
                                 </div> --}}
                                 <div class="input-box col-md-6">
-                                    <input type="text" name="telefono" class="form-control dialcode-set" value="" placeholder="Telefono" required>
+                                    <input type="text" name="telefono" class="form-control dialcode-set" value="" placeholder="Telefono" required autocomplete="off">
                                 </div>
                                 <div class="input-box col-md-6">
-                                    <input type="text" name="direccion" class="form-control dialcode-set" value="" placeholder="Direccion">
+                                    <input type="text" name="direccion" class="form-control dialcode-set" value="" placeholder="Direccion" autocomplete="off">
                                 </div>
                                 <div class="input-box col-md-6">
-                                    <input type="password" name="clave" class="form-control" placeholder="Password" required>
+                                    <input type="password" name="clave" class="form-control" placeholder="Contraseña" required>
                                 </div>
                                 <div class="input-box col-md-6">
-                                    <input type="password" name="clave_confirmation" class="form-control" placeholder="Confirm Password" required>
+                                    <input type="password" name="clave_confirmation" class="form-control" placeholder="Confirmar Contraseña" required>
                                 </div>
                                 <div class="col-12">
                                     <div class="links">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
                                             <label class="form-check-label" for="flexCheckDefault">
-                                                I agree to the terms and conditions.                                            </label>
+                                                Acepto <a href="{{asset('file/prueba.pdf')}}" target="_blank">términos y condiciones</a>.
+                                            </label>
+                                          
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn-custom">
-                                Register
+                                Registrar
                                 <span id="buttonUsrReferidoSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
     
                             </button>

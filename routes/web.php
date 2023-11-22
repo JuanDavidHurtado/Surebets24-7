@@ -33,10 +33,28 @@ Route::get('/subscribe', function () {
     return view('subscribe');
 })->name('subscribe');
 
+Route::get('/reset-password/{token}', function ($token) {
+    // Pasar el token a la vista
+    return view('auth.recuperar_password.VRecuperarPassword', ['token' => $token]);
+})->name('password.reset');
+Route::get('/enviar_correo', function () {
+    return view('auth.recuperar_password.VEnviarCorreo');
+})->name('enviar_correo');
+
 Route::get('/registro', function () {
     return view('auth/register');
 })->name('register');
+Route::get('/deportes', function () {
+    return view('deportes');
+})->name('deportes');
 
+Route::get('/estadisticas', function () {
+    return view('estadisticas');
+})->name('estadisticas');
+
+Route::get('/portal_academico', function () {
+    return view('academia');
+})->name('portal_academico');
 
 //cursos
 Route::prefix('curso')->group(function () {

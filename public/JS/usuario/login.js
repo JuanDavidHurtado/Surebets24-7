@@ -39,6 +39,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem('rol', result.body.rol);
                 localStorage.setItem('idRol',result.body.idRol);
                 localStorage.setItem('idUsuario', result.body.idUsuario);
+                localStorage.setItem('nombre', result.body.nombre);
+                localStorage.setItem('nivel', result.body.nivel);
+                localStorage.setItem('usuario', result.body.usuario);
+               
 
 
                 window.location.href = '/home';

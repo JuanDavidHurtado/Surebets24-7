@@ -1,158 +1,165 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <head>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="Hyip Pro,  A Modern Hyip Investmet Platform" name="description"/>
-<meta content="investment, HYIP, HYIP investment, hyip website, invest, investment, Investment Management system, investment script, Bug Finder, bug-finder, bugfinder.net, bugfinder" name="keywords"/>
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('darkpurple/uploads/logo/favicon.png') }}">
-<link href="{{asset('darkpurple/uploads/logo/logo.png')}}" rel="apple-touch-icon"/>
-<title>Hyipprs | Home</title>
-<link href="{{asset('uploads/logo/favicon.png')}}" rel="icon" sizes="16x16" type="image/png"/>
-<!-- <meta property="og:url" content="https://script.bugfinder.net/hyippro/purple"> -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta charset="utf-8" />
+        <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="Hyip Pro,  A Modern Hyip Investmet Platform" name="description" />
+        <meta content="investment, HYIP, HYIP investment, hyip website, invest, investment, Investment Management system, investment script, Bug Finder, bug-finder, bugfinder.net, bugfinder" name="keywords" />
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('darkpurple/uploads/logo/favicon.png') }}">
+        <link href="{{asset('darkpurple/uploads/logo/logo.png')}}" rel="apple-touch-icon" />
+        <title>Surebets24/7</title>
+        <link href="{{asset('uploads/logo/favicon.png')}}" rel="icon" sizes="16x16" type="image/png" />
+        <!-- <meta property="og:url" content="https://script.bugfinder.net/hyippro/purple"> -->
+        <meta content="summary_large_image" name="twitter:card" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<!-- <link rel="stylesheet" type="text/css" href="/themes/darkpurple/css/bootstrap.min.css"> -->
-<link href="{{asset('darkpurple/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{asset('darkpurple/css/animate.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{asset('darkpurple/css/owl.carousel.min.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{asset('darkpurple/css/owl.theme.default.min.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{asset('darkpurple/css/aos.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{asset('darkpurple/css/style.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{ asset('css/style_dashboard.css') }}"/>
-<script src="{{asset('darkpurple/js/fontawesomepro.js')}}"></script>
-<script src="{{asset('darkpurple/js/modernizr.custom.js')}}"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/themes/darkpurple/css/bootstrap.min.css"> -->
+        <link href="{{asset('darkpurple/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('darkpurple/css/animate.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('darkpurple/css/owl.carousel.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('darkpurple/css/owl.theme.default.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('darkpurple/css/aos.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('darkpurple/css/style.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/style_dashboard.css') }}" />
+        <script src="{{asset('darkpurple/js/fontawesomepro.js')}}"></script>
+        <script src="{{asset('darkpurple/js/modernizr.custom.js')}}"></script>
 
-<style>
-    .how-it-work::before {
-        background-image: url("{{ asset('uploads/content/6059d2c2654921616499394.jpg') }}");
-    }
-</style>
-<!-- <script type="application/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <style>
+            .how-it-work::before {
+                background-image: url("{{ asset('uploads/content/6059d2c2654921616499394.jpg') }}");
+            }
+        </style>
+        <!-- <script type="application/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 <script type="application/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> -->
-</head>
+    </head>
 
 <body>
     <header id="header-section">
         <div class="overlay">
-        <!-- TOPBAR -->
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg fixed-top">
-            <div class="container">
-            <a class="navbar-brand" href="https://script.bugfinder.net/hyippro/purple"> <img alt="Hyippro" src="{{asset('uploads/logo/logo.png')}}"/></a>
-            <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler p-0" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
-            <i aria-hidden="true" class="far fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            <li class="nav-item">
-            <a class="nav-link active"  href="{{route('home')}}">Home</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link"  href="{{route('about')}}">About Us</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link"  href="{{route('plan')}}">Plan</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="https://script.bugfinder.net/hyippro/purple/blog">Portal Académico</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="https://script.bugfinder.net/hyippro/purple/faq">FAQ</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link"  href="{{route('contact')}}">Contact</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link"  href="{{route('login')}}">Login</a>
-            </li>
-            </ul>
-            </div>
-            </div>
-        </nav>
-        <!-- /TOPBAR -->
+            <!-- TOPBAR -->
+            <!-- navbar -->
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container">
+                    <a class="navbar-brand" href="{{route('about')}}"> <img alt="Hyippro" src="{{asset('darkpurple/img/logo.jpeg')}}" /></a>
+                    <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler p-0" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+                        <i aria-hidden="true" class="far fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{{route('about')}}">Sobre Nosotros</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('deportes')}}">Deportes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('estadisticas')}}">Estadisticas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('plan')}}">Plan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('portal_academico')}}">Portal Académico</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('login')}}">Comenzar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- /TOPBAR -->
         </div>
-        </header><style>
-            .banner-section {
-                background-image: url("{{asset('uploads/logo/partials_darkpurple_banner.png')}}") !important;
-            }
-        </style>
+    </header>
+    <style>
+        .banner-section {
+            background-image: url("{{asset('uploads/logo/partials_darkpurple_banner.png')}}") !important;
+        }
+    </style>
     @yield('content')
     <footer class="footer-section">
         <div class="overlay">
             <div class="container">
                 <div class="row gy-5 gy-lg-0">
-                    <div class="col-lg-3 col-md-6 pe-lg-5">
+                    <div class="col-lg-6 col-md-6 pe-lg-5">
                         <div class="footer-box">
-                            <a class="navbar-brand" href="https://purple-hyip.bugfinder.net"> <img src="https://purple-hyip.bugfinder.net/assets/uploads/logo/logo.png" alt="Hyippro"></a>
-                                                        <p class="company-bio">
-                                    We are a full service like readable english. Many desktop publishing packages and web page editor now use lorem Ipsum sites still in their.                            </p>
-                                                </div>
+                            <a class="navbar-brand" href="{{route('plan')}}"> <img src="https://purple-hyip.bugfinder.net/assets/uploads/logo/logo.png" alt="Hyippro"></a>
+                            <p class="company-bio">
+                                Nuestra academia deportiva está dedicada a proporcionar a los usuarios una experiencia
+                                educativa excepcional, ofreciendo cursos y entrenamientos especializados.
+                                Con un enfoque práctico e interactividad, ayudando a los participantes a desarrollar
+                                habilidades sólidas en el ambito deportivo, permitiéndoles maximizar sus oportunidades en el
+                                emocionante mundo de las apuestas deportivas.</p>
+                        </div>
                     </div>
-    
-                    <div class="col-lg-3 col-md-6 ps-lg-5">
+
+                    <!--div class="col-lg-3 col-md-6 ps-lg-5">
                         <div class="footer-box">
-                            <h4>Useful Links</h4>
+                            <h4>Enlaces útiles</h4>
                             <ul>
                                 <li>
-                                    <a href="https://purple-hyip.bugfinder.net">Home</a>
+                                    <a href="{{route('plan')}}">Home</a>
                                 </li>
                                 <li>
-                                    <a href="https://purple-hyip.bugfinder.net/about">About</a>
+                                    <a href="{{route('plan')}}">About</a>
                                 </li>
                                 <li>
-                                    <a href="https://purple-hyip.bugfinder.net/plan">Plan</a>
+                                    <a href="{{route('plan')}}">Plan</a>
                                 </li>
                                 <li>
-                                    <a href="https://purple-hyip.bugfinder.net/blog">Blog</a>
+                                    <a href="{{route('plan')}}">Blog</a>
                                 </li>
                             </ul>
                         </div>
+                    </div-->
+                    <div class="col-lg-3 col-md-6 ps-lg-5">
+                        <div class="footer-box">
+                            <h4>Contacta con Nosotros</h4>
+                            <ul>
+                                <li>Address: <span>22 Baker Street, London</span></li>
+                                <li>Email: <span>email@website.com</span></li>
+                                <li>Phone: <span>+44-20-4526-2356</span></li>
+                            </ul>
+                        </div>
                     </div>
-                                        <div class="col-lg-3 col-md-6 ps-lg-5">
-                            <div class="footer-box">
-                                <h4>Contact Us</h4>
-                                <ul>
-                                    <li>Address: <span>22 Baker Street, London</span></li>
-                                    <li>Email: <span>email@website.com</span></li>
-                                    <li>Phone: <span>+44-20-4526-2356</span></li>
-                                </ul>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-box">
+                            <h4>Siganos En</h4>
+                            <div class="social-links">
+                                <a href="https://www.facebook.com/" target="_blank" class="facebook">
+                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://twitter.com/" target="_blank" class="facebook">
+                                    <i class="fab fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://bd.linkedin.com/" target="_blank" class="facebook">
+                                    <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                                </a>
+                                <a href="https://www.instagram.com/" target="_blank" class="facebook">
+                                    <i class="fab fa-instagram" aria-hidden="true"></i>
+                                </a>
                             </div>
                         </div>
-                                                        <div class="col-lg-3 col-md-6">
-                            <div class="footer-box">
-                                <h4>Follow us on</h4>
-                                <div class="social-links">
-                                                                        <a href="https://www.facebook.com/" target="_blank" class="facebook">
-                                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
-                                        </a>
-                                                                        <a href="https://twitter.com/" target="_blank" class="facebook">
-                                            <i class="fab fa-twitter" aria-hidden="true"></i>
-                                        </a>
-                                                                        <a href="https://bd.linkedin.com/" target="_blank" class="facebook">
-                                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
-                                        </a>
-                                                                        <a href="https://www.instagram.com/" target="_blank" class="facebook">
-                                            <i class="fab fa-instagram" aria-hidden="true"></i>
-                                        </a>
-                                                                </div>
-                            </div>
-                        </div>
-                                </div>
+                    </div>
+                </div>
                 <div class="d-flex copyright justify-content-between">
                     <div>
-                        <span> Copyright © 2023 Hyippro All Rights Reserved </span>
+                        <?php
+                        $year = date('Y');
+                        echo "<span> Copyright © $year Surebets24/7 Todos los Derechos Reservados </span>";
+                        ?>
                     </div>
-                                    <div class="text-md-end">
-                                                <a href="https://purple-hyip.bugfinder.net/language/US" class="language">English</a>
-                                                <a href="https://purple-hyip.bugfinder.net/language/IN" class="language">Hindi</a>
-                                                <a href="https://purple-hyip.bugfinder.net/language/ES" class="language">Spanish</a>
-                                        </div>
+                    <div class="text-md-end">
+                        <a href="{{route('deportes')}}" class="language">Deportes</a>
+                        <a href="{{route('estadisticas')}}" class="language">Estadisticas</a>
+                        <a href="{{route('plan')}}" class="language">Inversion</a>
+                        <a href="{{route('portal_academico')}}" class="language">Acedemia</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -160,7 +167,8 @@
     <!-- Common scripts -->
     <script src="{{asset('darkpurple/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('darkpurple/js/jquery-3.6.0.min.js')}}">
-    </script><script src="{{asset('darkpurple/js/owl.carousel.min.js')}}"></script>
+    </script>
+    <script src="{{asset('darkpurple/js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('darkpurple/js/aos.js')}}"></script>
     <script src="{{asset('darkpurple/js/socialSharing.js')}}"></script>
     <script src="{{asset('global/js/notiflix-aio-2.7.0.min.js')}}"></script>
@@ -169,34 +177,34 @@
     <script src="{{asset('global/js/axios.min.js')}}"></script>
     <script src="{{asset('darkpurple/js/script.js')}}"></script>
     <script>
-            "use strict";
-            (function ($) {
-                $(document).on('click', '.investNow', function () {
-                    var planModal = new bootstrap.Modal(document.getElementById('investNowModal'))
-                    planModal.show()
-                    let data = $(this).data('resource');
-                    let price = $(this).data('price');
-                    let symbol = "$";
-                    let currency = "USD";
-                    $('.price-range').text(`Invest: ${price}`);
+        "use strict";
+        (function($) {
+            $(document).on('click', '.investNow', function() {
+                var planModal = new bootstrap.Modal(document.getElementById('investNowModal'))
+                planModal.show()
+                let data = $(this).data('resource');
+                let price = $(this).data('price');
+                let symbol = "$";
+                let currency = "USD";
+                $('.price-range').text(`Invest: ${price}`);
 
-                    if (data.fixed_amount == '0') {
-                        $('.invest-amount').val('');
-                        $('#amount').attr('readonly', false);
-                    } else {
-                        $('.invest-amount').val(data.fixed_amount);
-                        $('#amount').attr('readonly', true);
-                    }
+                if (data.fixed_amount == '0') {
+                    $('.invest-amount').val('');
+                    $('#amount').attr('readonly', false);
+                } else {
+                    $('.invest-amount').val(data.fixed_amount);
+                    $('#amount').attr('readonly', true);
+                }
 
-                    $('.profit-details').html(`Interest: ${(data.profit_type == '1') ? `${data.profit} %` : `${data.profit} ${currency}`}`);
-                    $('.profit-validity').html(`Per ${data.schedule} hours ,  ${(data.is_lifetime == '0') ? `${data.repeatable} times` : `Lifetime`}`);
-                    $('.plan-name').text(data.name);
-                    $('.plan-id').val(data.id);
-                    $('.show-currency').text("USD");
-                });
+                $('.profit-details').html(`Interest: ${(data.profit_type == '1') ? `${data.profit} %` : `${data.profit} ${currency}`}`);
+                $('.profit-validity').html(`Per ${data.schedule} hours ,  ${(data.is_lifetime == '0') ? `${data.repeatable} times` : `Lifetime`}`);
+                $('.plan-name').text(data.name);
+                $('.plan-id').val(data.id);
+                $('.show-currency').text("USD");
+            });
 
-            })(jQuery);
-
-        </script>
+        })(jQuery);
+    </script>
 </body>
+
 </html>

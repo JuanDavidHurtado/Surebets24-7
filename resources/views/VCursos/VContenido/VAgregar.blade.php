@@ -97,7 +97,7 @@
                                     <h5 class="darkblue-text-bold">Adicionar</h5>
                                     <div class="input-group">
                                         <div class="input-group mb-3 input-box cutom__referal_input__group">
-                                            <input type="file" name="matArchivo" id="matArchivo" class="form-control" multiple="" placeholder="Upload File" required>
+                                            <input type="file" name="matArchivo" id="matArchivo" class="form-control" multiple="" placeholder="Upload File" required accept="application/pdf, video/*">
                                         </div>
                                     </div>
                                 </div>
