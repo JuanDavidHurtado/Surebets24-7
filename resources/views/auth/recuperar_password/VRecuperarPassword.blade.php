@@ -22,16 +22,16 @@
                 <div class="form-wrapper d-flex align-items-center h-100">
                     
                     <form id="resetPasswordForm">
-                        <input type="hidden" name="_token" value="t117n7DczbFhJ9Lovzun7NOYIow89NtB1kF6hl4w">                            
                         <div class="row g-4">
                             <div class="col-12">
                                 <h4>Recuperar contraseña</h4>
                             </div>
+                            <input type="hidden" type="text" name="token" value="{{$token}}">
                             <div class="input-box col-12">
-                                <input type="password" name="usuClave" value="" class="form-control" id="usuClave" aria-describedby="emailHelp" placeholder="Escriba su contraseña" autocomplete="off">
+                                <input type="password" name="clave" value="" class="form-control" id="usuClave" aria-describedby="emailHelp" placeholder="Escriba su contraseña" autocomplete="off">
                             </div>
                             <div class="input-box col-12">
-                                <input type="password" name="usuClave_confirmacion" value="" class="form-control" id="usuClave_confirmacion" placeholder="Confirmar contraseña" autocomplete="off">
+                                <input type="password" name="clave_confirmacion" value="" class="form-control" id="usuClave_confirmacion" placeholder="Confirmar contraseña" autocomplete="off">
                                                                 </div>
 
                             
@@ -46,10 +46,7 @@
                             <span id="buttonSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                         
                         </button>
-                        <div class="bottom">
-                            No tienes una cuenta?
-                            <a href="{{route('register')}}">Crear cuenta</a>
-                        </div>
+                       
                     </form>
                 </div>
             </div>
@@ -58,6 +55,6 @@
 </section>
 
 
-<script src="{{asset('js/usuario/recuperaPassword.js')}}"></script>
+<script src="{{asset('js/usuario/recuperarPassword.js')}}"></script>
 
 @endsection

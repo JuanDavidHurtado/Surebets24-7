@@ -11,11 +11,12 @@ class CContenido extends Controller
 
     public function listar($id)
     {
-        $sql = "SELECT * FROM curso AS c
-                INNER JOIN contenido AS cont ON cont.curso_idCurso = c.idCurso
-                WHERE c.idCurso = :idCurso";
-        $data = DB::select($sql, ['idCurso' => $id]);
-    
+        
+        $data = DB::table('curso as c')
+        ->join('contenido as cont', 'cont.curso_idCurso', '=', 'c.idCurso')
+        ->where('c.idCurso', $id)
+        ->select('c.*', 'cont.*') // Selecciona los campos que necesites
+        ->paginate(10);
         return response()->json($data);
     }
 

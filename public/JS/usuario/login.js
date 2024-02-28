@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(result => {
                 button.disabled = false;
                 buttonSpinner.classList.add('d-none');
-                console.log(result.body)
             
                 if (!result || result.status !== 200) {
                     let errorMessage = result.body.message || 'Error desconocido';
@@ -36,12 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 // Almacenar el token después de un inicio de sesión exitoso
                 localStorage.setItem('token', result.body.token);
-                localStorage.setItem('rol', result.body.rol);
-                localStorage.setItem('idRol',result.body.idRol);
-                localStorage.setItem('idUsuario', result.body.idUsuario);
-                localStorage.setItem('nombre', result.body.nombre);
-                localStorage.setItem('nivel', result.body.nivel);
-                localStorage.setItem('usuario', result.body.usuario);
+                localStorage.setItem('id', result.body.id);
+            
                
 
 
@@ -62,11 +57,10 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch('/api/logout', {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,  
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                },
-                credentials: 'include'
+                },                
             })
             .then(response => {
                 if (!response.ok) {
@@ -75,13 +69,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(data => {
-                console.log('Logout exitoso:', data.message);
                 // Limpiar localStorage
                 localStorage.removeItem('token');
-                localStorage.removeItem('rol');
-                localStorage.removeItem('idUsuario');
-                localStorage.removeItem('idRol')
-                
+                localStorage.removeItem('id');
+              
                 // Redirigir al usuario a la página de inicio de sesión o a la página principal
                 window.location.href = '/';
             })

@@ -49,12 +49,10 @@ document.addEventListener('DOMContentLoaded', function () {
             //     return; // Detiene la ejecución adicional del manejador
             // }
             // Agregar el campo usuFecRegistro con la fecha y hora formateada a FormData
-            idProtrocinador = localStorage.getItem('idUsuario')
+            idProtrocinador = localStorage.getItem('id')
             formData.append('patrocinador', idProtrocinador);
             
-            for (var pair of formData.entries()) {
-                console.log(pair[0]+ ', ' + pair[1]); 
-            }
+           
 
             fetch('/api/registro_usuario_ref', { // Asegúrate de que esta URL sea correcta y accesible en tu aplicación
                 method: 'POST',
@@ -74,6 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         errorAlert.classList.add('d-none'); // Opcional: Oculta el alerta para el próximo uso
                         // Limpia el valor del campo de entrada del nombre
                     }, 3000);
+                    button.disabled = false;
+
                     throw new Error('Server responded with a status: ' + response.status);
                    
                 }
@@ -89,6 +89,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(function() {
                     successAlert.classList.add('d-none'); // Opcional: Oculta el alerta para el próximo uso
                     agregarUserReferidoForm.reset();
+                    button.disabled = false;
+
                 }, 2000);
              
             })

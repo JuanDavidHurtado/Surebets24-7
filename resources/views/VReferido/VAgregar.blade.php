@@ -57,7 +57,7 @@
                             <div class="input-box col-md-6">
                                 <input type="text" name="telefono" class="form-control dialcode-set" value="" placeholder="Telefono" required>
                             </div>
-                            <div class="input-box col-md-6">
+                            <div class="input-box col-md-12">
                                 <input type="text" name="direccion" class="form-control dialcode-set" value="" placeholder="Direccion">
                             </div>
                             <div class="input-box col-md-6">

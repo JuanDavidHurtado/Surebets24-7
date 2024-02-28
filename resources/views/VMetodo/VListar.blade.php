@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-12">
-                                <button class="btn-custom" type="submit">Registrar</button>
+                                <button class="btn-custom" id="button-metodo-pago" type="submit">Registrar</button>
                             </div>
                         </div>
                     </form>

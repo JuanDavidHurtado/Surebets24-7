@@ -1,3 +1,6 @@
+import { actualizarPaginacion, cargarDatosOriginales } from "../paginacion/paginacion.js";
+
+
 document.addEventListener('DOMContentLoaded', function () {
     let originalData = []; // Almacena los datos originales sin filtrar
     const tableBody = document.querySelector('.table.table-striped tbody');
@@ -6,36 +9,53 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para llenar la tabla con los datos
     function fillTableWithData(data) {
         tableBody.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
-        data.forEach((usu_cur, index) => {
+        data.data.forEach((usu_cur, index) => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${usu_cur.cur_fecha}</td>
-                <td>${usu_cur.curNombre}</td>
-                <td>
+            <td>${index + 1}</td>
+            <td>${usu_cur.cur_fecha}</td>
+            <td>${usu_cur.curNombre}</td>
+            <td>
                 ${usu_cur.usu_cur_estado === 'FINALIZADO'
-                    ? '<button class="badge bg-primary">Ver Contenido</button>'
+                    ? `<button class="badge bg-primary" onclick="redirect(${usu_cur.idCurso})">Ver Contenido</button>`
                     : usu_cur.usu_cur_estado === 'ANULADO'
                         ? 'No hay contenido cargado'
                         : 'En Espera'}
-                </td>
-                <td><span class="badge ${usu_cur.usu_cur_estado === 'FINALIZADO' ? 'bg-success' : usu_cur.usu_cur_estado === 'ANULADO' ? 'bg-danger' : 'bg-warning'}">${usu_cur.usu_cur_estado}</span></td>
-            `;
+            </td>
+            <td><span class="badge ${usu_cur.usu_cur_estado === 'FINALIZADO' ? 'bg-success' : usu_cur.usu_cur_estado === 'ANULADO' ? 'bg-danger' : 'bg-warning'}">${usu_cur.usu_cur_estado}</span></td>
+        `;
             tableBody.appendChild(row);
         });
+        // actualizarPaginacion(data,  '.table.table-striped tbody', fillTableWithData);
+        actualizarPaginacion(data, '.table.table-striped tbody', fillTableWithData, (data) => {
+            originalData = data; // Actualiza originalData con los nuevos datos de paginación
+        });
+
     }
 
-    // Utiliza la función fetch para realizar la petición fetch
-    fetch('/api/cur_usu',
-        { 
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
+    async function restoreOriginalData() {
+        var dataOriginal;
+        if (originalData && originalData.links ) {
+            const originalDataUrl = originalData.links.find(link => link.active).url;
+            // Luego puedes usar esta URL en tu función cargarDatos si es necesario
+            dataOriginal= await cargarDatosOriginales(originalDataUrl);      
+        }   
+        
+        fillTableWithData(dataOriginal);
+        }
 
-        } 
+    // Utiliza la función fetch para realizar la petición fetch
+    var id = localStorage.getItem('id');
+    fetch('/api/cur_usu/' + id,
+    { 
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+        
+    }
     
     )
         .then(response => {
@@ -45,9 +65,16 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(data => {
-            if (data.length > 0) {
+            if (data.data.length > 0) {
                 originalData = data; // Almacena los datos originales
                 fillTableWithData(data); // Llena la tabla con los datos originales
+                // actualizarPaginacion(data,  '.table.table-striped tbody', fillTableWithData);
+                actualizarPaginacion(data, '.table.table-striped tbody', fillTableWithData, (data) => {
+                    originalData = data; // Actualiza originalData con los nuevos datos de paginación
+                });
+
+
+                
             } else {
                 const noDataMessage = document.createElement('tr');
                 noDataMessage.innerHTML = '<td colspan="5"><center>No hay cursos registrados en el sistema en este momento.</center></td>';
@@ -60,12 +87,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Agrega un evento input al campo de entrada para búsqueda en tiempo real
     const sponsorURLInput = document.getElementById('sponsorURL');
+    // sponsorURLInput.addEventListener('input', function () {
+    //     const inputText = sponsorURLInput.value.toLowerCase(); // Convertir a minúsculas para coincidencia no sensible a mayúsculas
+    //     const filteredData = originalData.data.filter(usu_cur =>
+    //         usu_cur.cur_fecha.toLowerCase().includes(inputText)
+    //     );
+    //     const updatedData = {...originalData, data: filteredData};
+
+    //     fillTableWithData(updatedData);
+
+    // });
     sponsorURLInput.addEventListener('input', function () {
-        const inputText = sponsorURLInput.value.toLowerCase(); // Convertir a minúsculas para coincidencia no sensible a mayúsculas
-        const filteredData = originalData.filter(usu_cur =>
-            usu_cur.cur_fecha.toLowerCase().includes(inputText)
-        );
-        fillTableWithData(filteredData);
+        const searchValue = sponsorURLInput.value.toLowerCase();
+        
+        if (searchValue === '' || searchValue.trim() === '') {
+            // Si el campo de búsqueda está vacío, restaura los datos originales
+            restoreOriginalData();
+          
+        } else {
+            // Realiza la búsqueda y muestra los resultados filtrados
+            const filteredData = originalData.data.filter(usu_cur =>
+                usu_cur.cur_fecha.toLowerCase().includes(searchValue)
+            );
+            const updatedData = { ...originalData, data: filteredData };
+            fillTableWithData(updatedData);
+        }
+
     });
 
 

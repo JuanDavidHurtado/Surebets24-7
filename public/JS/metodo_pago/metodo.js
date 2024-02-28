@@ -1,36 +1,45 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+
+    var id = localStorage.getItem('id');
+
 
     const form = document.getElementById('myForm');
-
-    form.addEventListener('submit', function(event) {
+   
+    form.addEventListener('submit', function (event) {
         event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+         // Deshabilita el botón de envío para evitar múltiples envíos
+        var button = this.querySelector('button[type="submit"]');
+        button.disabled = true;
 
         // Recolecta los datos del formulario
         const formData = new FormData(form);
 
-        console.log(formData);
+        formData.append('id', id)
 
         // Realiza una solicitud Fetch a una URL específica
         fetch('/api/agregar_metodo', {
-                method: 'POST', // O el método que necesites
-                 headers: {
+            method: 'POST', // O el método que necesites
+            headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 'Accept': 'application/json',
-                },
-                body: formData
-            })
+            },
+            body: formData
+        })
             .then(response => response.json())
             .then(data => {
 
-                //console.log(data);
+
                 if (data.status === 201) {
                     const Message = data.message;
                     alert(Message)
+                    button.disabled = false;
                     location.reload();
                 } else {
                     // Muestra un mensaje de error en el mensajeContainer
                     const Message = 'Error: Ocurrió un problema al procesar la solicitud';
                     alert(Message)
+                    button.disabled = false;
                     // Recargar la página actual
                     location.reload();
 
@@ -43,6 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert(Message)
                 location.reload();
                 console.error('Error al enviar el formulario: ' + error);
+            }).finally(() => {
+                button.disabled = false; // Habilitar el botón
             });
     });
 
@@ -53,16 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Realizar la solicitud Fetch a tu API en api.php
-    fetch(`/api/lista_metodo`,
-    { 
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        }
+    fetch(`/api/lista_metodo/` + id,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
 
-    })
+        })
         .then(response => {
             if (!response.ok) {
                 // Si la respuesta no es 200 OK, lanza un error
@@ -104,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Agregar un manejador de eventos para los botones "Anular"
-    contenidoTabla.addEventListener('click', function(event) {
+    contenidoTabla.addEventListener('click', function (event) {
         if (event.target.classList.contains('anular-metodo')) {
             const button = event.target;
             const idMetodo = button.getAttribute('data-id');
@@ -115,16 +126,16 @@ document.addEventListener('DOMContentLoaded', function() {
             if (confirmacion) {
                 // Realiza una solicitud Fetch para actualizar el estado
                 fetch('/api/actualizar_metodo', {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            id: idMetodo,
-                            estado: nuevoEstado
-                        }),
-                    })
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: idMetodo,
+                        estado: nuevoEstado
+                    }),
+                })
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok ' + response.statusText);

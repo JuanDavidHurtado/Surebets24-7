@@ -14,6 +14,7 @@ use App\Http\Controllers\CMetodo;
 use App\Http\Controllers\CComision;
 use App\Http\Controllers\CPerfil;
 use App\Http\Controllers\CContenidoMaterial;
+use App\Http\Controllers\AuthController;
 
 
 
@@ -48,17 +49,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/registro_usuario', [CUsuario::class, 'registro'])->name('registro_usuario');
-Route::post('/login', [CUsuario::class, 'login'])->name('login');
-Route::post('enviar_correo', [CUsuario::class, 'sendResetLinkEmail'])->name('enviar_correo');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+
+Route::post('/enviar_correo', [CUsuario::class, 'sendResetLinkEmail'])->name('enviar_correo');
+Route::post('/reset_password', [AuthController::class, 'resetPassword'])->name('reset_password');
 
 
 
 Route::middleware('auth:sanctum')->group(function () {
 
     //Curso(Parametrizacion)
-    Route::get('/lista_curso', [CCurso::class, 'listar'])->name('lista_curso');
     Route::post('/agregar_curso', [CCurso::class, 'agregar'])->name('agregar_curso');
     Route::post('/actualizar_curso', [CCurso::class, 'estado'])->name('actualizar_curso');
+    Route::get('/lista_curso', [CCurso::class, 'listar'])->name('lista_curso');
+
 
     //Contenido(Parametrizacion)
     Route::get('/lista_contenido/{id}', [CContenido::class, 'listar'])->name('lista_contenido');
@@ -79,6 +84,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/pendiente_curso', [CAdministracion::class, 'listar_curso'])->name('pendiente_curso');
     Route::get('/pendiente_inversion', [CAdministracion::class, 'listar_inversion'])->name('pendiente_inversion');
     Route::get('/pendiente_comision', [CAdministracion::class, 'listar_comision'])->name('pendiente_comision');
+    Route::get('/pendiente_comision_especial', [CAdministracion::class, 'listar_comision_especial'])->name('pendiente_comision_especial');
     Route::get('/lis_usu', [CAdministracion::class, 'listar_usuario'])->name('lis_usu');
     Route::get('/lis_inv', [CAdministracion::class, 'listar_inversion_actual'])->name('lis_inv');
     Route::put('/est_inv', [CAdministracion::class, 'estado_inversion'])->name('est_inv');
@@ -92,15 +98,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/lista_inversion', [CInversion::class, 'listar'])->name('lista_inversion');
     Route::get('/seleccion/{id}', [CInversion::class, 'seleccion_plan'])->name('seleccion_inversion');
     Route::post('/agregar_inversion', [CInversion::class, 'agregar'])->name('agregar_inversion');
-    Route::get('/pro_usu', [CInversion::class, 'producto_usuario'])->name('pro_usu');
+    Route::get('/pro_usu/{id}', [CInversion::class, 'producto_usuario'])->name('pro_usu');
 
 
 
     //Usuario curso
     Route::get('/lista_curso_usuario', [CCursousuario::class, 'listar'])->name('lista_curso_usuario');
-    Route::get('/seleccion_curso/{id}', [CCursousuario::class, 'seleccion_curso'])->name('seleccion_curso');
-    Route::get('/cur_usu', [CCursousuario::class, 'curso_usuario'])->name('cur_usu');
+    //Route::get('/seleccion_curso/{id}', [CCursousuario::class, 'seleccion_curso'])->name('seleccion_curso');
+    Route::get('/seleccion_curso/{id}/{id_usu}', [CCursousuario::class, 'seleccion_curso'])->name('seleccion_curso');
+    Route::get('/seleccion_curso_compra/{id}', [CCursousuario::class, 'seleccion_curso_compra'])->name('seleccion_curso_compra');
+    Route::get('/cur_usu/{id}', [CCursousuario::class, 'curso_usuario'])->name('cur_usu');
     Route::post('/agregar_curso_usuario', [CCursousuario::class, 'agregar'])->name('agregar_curso_usuario');
+    
 
 
     //Referido
@@ -109,11 +118,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //Comision
-    Route::get('/lista_comision', [CComision::class, 'listar'])->name('lista_comision');
-
+    Route::get('/lista_comision/{id}', [CComision::class, 'listar'])->name('lista_comision');
+    Route::get('/lis_com_esp/{id}', [CComision::class, 'listar_comision_especial'])->name('lis_com_esp');
 
     //Metodo Pago
-    Route::get('/lista_metodo', [CMetodo::class, 'listar'])->name('lista_metodo');
+    Route::get('/lista_metodo/{id}', [CMetodo::class, 'listar'])->name('lista_metodo');
     Route::put('/actualizar_metodo', [CMetodo::class, 'estado'])->name('actualizar_metodo');
     Route::post('/agregar_metodo', [CMetodo::class, 'agregar'])->name('agregar_metodo');
 
@@ -123,10 +132,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/actualizar_perfil', [CUsuario::class, 'actualizar_datos'])->name('actualizar_perfil');
     Route::post('/act_img', [CUsuario::class, 'actualizar_imagen'])->name('act_img');
     Route::put('/act_cont', [CUsuario::class, 'actualizar_contrasena'])->name('act_cont');
+    Route::get('/obtener_usuario/{id}', [CUsuario::class, 'obtener_usuario'])->name('obtener_usuario');
 
 
     // logout
-    Route::get('/logout', [CUsuario::class, 'logout'])->name('logout');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 

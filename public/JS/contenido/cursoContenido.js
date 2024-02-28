@@ -1,3 +1,5 @@
+import { actualizarPaginacion } from "../paginacion/paginacion.js";
+
 function updateContentList(cursoId) {
     fetch('/api/lista_contenido/' + cursoId,
         { 
@@ -14,29 +16,8 @@ function updateContentList(cursoId) {
     .then(contenidos => {
         const contenidoTableBody = document.querySelector('#tabla-contenido-curso tbody');
         contenidoTableBody.innerHTML = ''; // Limpiar el contenido actual de la tabla
-        contenidos.forEach((contenido, index) => {
-            const contenidoRow = document.createElement('tr');
-            contenidoRow.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${contenido.curNombre}</td>
-                <td>${contenido.conNombre}</td>
-                <td>
-                <button type="button"  class="btn btn-sm infoContButton payoutHistoryBtn" data-bs-toggle="modal" 
-                            data-bs-target="#curso_id" data-id="${contenido.idContenido}"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="Información de material">
-                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            </button>&nbsp
-                   <button type="button" class="btn btn-sm  payoutHistoryBtn"     
-                        data-bs-toggle="modal" data-bs-target="#addMaterialModal"
-                        data-id="${contenido.idContenido}"
-                        data-bs-toggle="tooltip" data-bs-placement="top" title="Adicionar contenido">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                    </button> 
-                
-                </td>
-            `;
-            contenidoTableBody.appendChild(contenidoRow);
-        });
+        llenarTablaCotenidoCurso(contenidos, contenidoTableBody);
+        actualizarPaginacion(contenidos,  '#tabla-contenido-curso tbody', llenarTablaCotenidoCurso);
     })
     .catch(error => {
         console.error('Error fetching content data: ', error);
@@ -82,43 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(contenidos => {
-            if(Array.isArray(contenidos) && contenidos.length > 0){
-                document.querySelector('#message-noFound').classList.add('d-none')
+            if(Array.isArray(contenidos.data) && contenidos.data.length > 0){
+                document.querySelector('#message-noFound').classList.add('d-none');
                 // Aquí actualizas la tabla de contenidos con los nuevos datos
                 const contenidoTableBody = document.querySelector('#tabla-contenido-curso tbody');
-                contenidos.forEach((contenido, index) => {
-                    const contenidoRow = document.createElement('tr');
-                    contenidoRow.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td>${contenido.curNombre}</td>
-                        <td>${contenido.conNombre}</td>
-                        <td>
-                            <button type="button"  class="btn btn-sm infoContButton payoutHistoryBtn" data-bs-toggle="modal" 
-                            data-bs-target="#curso_id" data-id="${contenido.idContenido}"
-                            data-bs-toggle="tooltip" data-bs-placement="top" title="Información de material">
-                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            </button>&nbsp
-                            <button type="button" class="btn btn-sm  payoutHistoryBtn"     
-                                data-bs-toggle="modal" data-bs-target="#addMaterialModal"
-                                data-id="${contenido.idContenido}"
-                                data-bs-toggle="tooltip" data-bs-placement="top" title="Adicionar material">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
-                        
-                        </td>
-                       
-                    `;
-                    contenidoTableBody.appendChild(contenidoRow);
-                });
-
-                // Agregar controlador de eventos a los botones infoContButton
-                document.querySelectorAll('.infoContButton').forEach(button => {
-                    button.addEventListener('click', function() {
-                        var contenidoId = this.getAttribute('data-id');
-                        // Navegar a la nueva ruta
-                        window.location.href = '/curso/contenido/material/' + contenidoId;
-                    });
-                });
+                llenarTablaCotenidoCurso(contenidos, contenidoTableBody);
+                actualizarPaginacion(contenidos,  '#tabla-contenido-curso tbody', llenarTablaCotenidoCurso);
+               
             }else{
                 showMessage('El Curso no tiene contenido');
 
@@ -146,11 +97,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
    
     // agregar  contenido de curso
-    var agregarContForm = document.querySelector('#agregarconteForm')
+    var agregarContForm = document.querySelector('#agregarconteForm');
     if (agregarContForm) {
         var button = agregarContForm.querySelector('button[type="submit"]');
         var buttonSpinner = document.getElementById('buttonSpinner');
-        var mensajeContenido = document.getElementById('mensajeContenidoCurso')
+        var mensajeContenido = document.getElementById('mensajeContenidoCurso');
         var successAlert = document.getElementById('successAlert'); // Asegúrate de que este elemento existe en el modal
         var errorAlert = document.getElementById('errorAlert'); // Asegúrate de que este elemento existe en el modal
         // Cuando el DOM esté listo, inicializar los tooltips
@@ -167,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
             errorAlert.classList.add('d-none');
             var formData = new FormData(this);
             if(cursoId){
-                formData.append('id_curso',cursoId)
+                formData.append('id_curso',cursoId);
             }
            
             fetch('/api/agregar_contenido', { // Asegúrate de que esta URL sea correcta y accesible en tu aplicación
@@ -192,12 +143,14 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.message) {
                     successAlert.textContent = data.message;
-                    mensajeContenido.classList.remove('d-none')
+                    mensajeContenido.classList.remove('d-none');
+                   
                 }
+                document.getElementById('nombre').value = '';
                 // Cierra el modal después de un pequeño retraso para permitir que el usuario vea el mensaje
                 setTimeout(function() {
                     $('#addFundModal').modal('hide'); // Usa jQuery para cerrar el modal, ajusta el ID del modal si es necesario
-                    mensajeContenido.classList.add('d-none')
+                    mensajeContenido.classList.add('d-none');
                     // Limpia el valor del campo de entrada del nombre
                     document.getElementById('nombre').value = ''; 
                 }, 5000);
@@ -215,80 +168,121 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // agregar material a contenido
-    var agregarMaterialForm = document.querySelector('#agregarMaterialForm')
+    var agregarMaterialForm = document.querySelector('#agregarMaterialForm');
     if(agregarMaterialForm){
-        var button = agregarMaterialForm.querySelector('button[type="submit"]');
+        var isSubmitting = false;
+        var buttonMaterial= agregarMaterialForm.querySelector('button[type="submit"]');
         var buttonMaterialSpinner = document.getElementById('buttonMaterialSpinner');
-        var successAlert = document.getElementById('successAlertMaterial'); // Asegúrate de que este elemento existe en el modal
-        var errorAlert = document.getElementById('errorAlertMaterial');
-        agregarMaterialForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            button.disabled = true;
-            if (buttonMaterialSpinner) {
-                 buttonMaterialSpinner.classList.remove('d-none');
-            } else {
-                console.error('buttonMaterialSpinner not found');
-            }
-            successAlert.classList.add('d-none');
-            errorAlert.classList.add('d-none');
-            var formData = new FormData(this);
+        var successAlertMaterial = document.getElementById('successAlertMaterial'); // Asegúrate de que este elemento existe en el modal
+        var errorAlertMaterial = document.getElementById('errorAlertMaterial');
+            // Agregar manejador de eventos para el campo de entrada del archivo
+        document.getElementById('matArchivo').addEventListener('change', function (event) {
+            const archivo = event.target.files[0];
+            if (archivo) {
+                const tipoArchivo = archivo.type;
+                if (tipoArchivo === 'application/pdf' || tipoArchivo.startsWith('video/')) {
+                    // Procede con la subida del archivo
+                    // Aquí puedes colocar el código para manejar la subida del archivo
+                    agregarMaterialForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        if (isSubmitting) {
+                            // Ya hay una solicitud en curso, no hagas nada
+                            return;
+                        }
+                
+                        isSubmitting = true; // Marcar que se está procesando una solicitud
+
+                        buttonMaterial.disabled = true;
+                        
+                        if (buttonMaterialSpinner) {
+                            buttonMaterialSpinner.classList.remove('d-none');
+                        } else {
+                            console.error('buttonMaterialSpinner not found');
+                        }
+                        successAlertMaterial.classList.add('d-none');
+                        errorAlertMaterial.classList.add('d-none');
+                        var formData = new FormData(this);
+                        
+                        for (var pair of formData.entries()) {
+                            console.log(pair[0]+ ', ' + pair[1]); 
+                        }
             
-            for (var pair of formData.entries()) {
-                console.log(pair[0]+ ', ' + pair[1]); 
-            }
-
-            fetch('/api/agregar_material', {
-                method: 'POST',
-                headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Accept': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                body: formData
-            })
-            .then(response => {
-                button.disabled = false; // Habilitar el botón
-                buttonMaterialSpinner.classList.add('d-none'); // Ocultar el spinner en el botón
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Aquí manejas la respuesta exitosa
-                successAlert.textContent = data.message;
-                successAlert.classList.remove('d-none');
-                setTimeout(() => {
-                    successAlert.classList.add('d-none');
-                    if (button && buttonMaterialSpinner && agregarMaterialForm) {
-                        button.disabled = false;
-                        buttonMaterialSpinner.classList.add('d-none');
-                        agregarMaterialForm.reset();
-                    }
-                    $('#addMaterialModal').modal('hide');   
-                }, 3000); 
-                
-               
-                
-               
-            })
-            .catch(error => {
-                errorAlert.textContent = error.message;
-                errorAlert.classList.remove('d-none');
-                setTimeout(() => {
-                    errorAlert.classList.add('d-none');
-                    button.disabled = false;
+                        fetch('/api/agregar_material', {
+                            method: 'POST',
+                            headers: {
+                                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                                    'Accept': 'application/json',
+                                    'X-Requested-With': 'XMLHttpRequest',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                },
+                            body: formData
+                        })
+                        .then(response => {
+                            buttonMaterial.disabled = false; // Habilitar el botón
+                            buttonMaterialSpinner.classList.add('d-none'); // Ocultar el spinner en el botón
+                            if (!response.ok) {
+                                throw new Error('Error en la respuesta del servidor');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Aquí manejas la respuesta exitosa
+                            successAlertMaterial.textContent = data.message;
+                            successAlertMaterial.classList.remove('d-none');
+                            setTimeout(() => {
+                                successAlertMaterial.classList.add('d-none');
+                                if (buttonMaterial && buttonMaterialSpinner && agregarMaterialForm) {
+                                    buttonMaterial.disabled = false;
+                                    buttonMaterialSpinner.classList.add('d-none');
+                                    agregarMaterialForm.reset();
+                                }
+                                $('#addMaterialModal').modal('hide');   
+                            }, 3000); 
+                            
+                        
+                            
+                        
+                        })
+                        .catch(error => {
+                            errorAlertMaterial.textContent = error.message;
+                            errorAlertMaterial.classList.remove('d-none');
+                            setTimeout(() => {
+                                errorAlertMaterial.classList.add('d-none');
+                                buttonMaterial.disabled = false;
+                                buttonMaterialSpinner.classList.add('d-none');
+                            }, 3000); // Mensaje visible por 3000 milisegundos (3 segundos)
+                    
+                        })
+                        .finally(() => {
+                            isSubmitting = false; // Marcar que la solicitud ha terminado
+                            buttonMaterial.disabled = false;
+                            buttonMaterialSpinner.classList.add('d-none');
+                        });
+                        
+            
+                    });
+                    
+                    
+                    $(addMaterialModal).on('hidden.bs.modal', function () {
+                        successAlert.classList.add('d-none');
+                        errorAlert.classList.add('d-none');
+                    });
+                } else {
+                    // Muestra un mensaje de error
                     buttonMaterialSpinner.classList.add('d-none');
-                }, 3000); // Mensaje visible por 3000 milisegundos (3 segundos)
-           
-            });
+                    // Vaciar el campo de entrada del archivo
+                    document.getElementById('matArchivo').value = '';
+                    errorAlert.textContent ='Tipo de archivo no soportado. Por favor, selecciona un archivo PDF o un video.';
+                    errorAlert.classList.remove('d-none');
+                            setTimeout(() => {
+                                errorAlert.classList.add('d-none');
+                                button.disabled = false;
+                            }, 3000); 
+                }
+            }
+        });
 
-        });
-        $(addMaterialModal).on('hidden.bs.modal', function () {
-            successAlert.classList.add('d-none');
-            errorAlert.classList.add('d-none');
-        });
+        
     }
 
       // Selecciona el botón usando la clase que le agregaste
@@ -308,3 +302,40 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+function llenarTablaCotenidoCurso(contenidos, contenidoTableBody) {
+    contenidos.data.forEach((contenido, index) => {
+        const contenidoRow = document.createElement('tr');
+        contenidoRow.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${contenido.curNombre}</td>
+            <td>${contenido.conNombre}</td>
+            <td>
+                <button type="button"  class="btn btn-sm infoContButton payoutHistoryBtn" data-bs-toggle="modal" 
+                data-bs-target="#curso_id" data-id="${contenido.idContenido}"
+                data-bs-toggle="tooltip" data-bs-placement="top" title="Información de material">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </button>&nbsp
+                <button type="button" class="btn btn-sm  payoutHistoryBtn"     
+                    data-bs-toggle="modal" data-bs-target="#addMaterialModal"
+                    data-id="${contenido.idContenido}"
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="Adicionar material">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            
+            </td>
+           
+        `;
+        contenidoTableBody.appendChild(contenidoRow);
+    });
+
+    // actualizarPaginacion(data);
+    actualizarPaginacion(contenidos,  '#tabla-contenido-curso tbody', llenarTablaCotenidoCurso);
+    // Agregar controlador de eventos a los botones infoContButton
+    document.querySelectorAll('.infoContButton').forEach(button => {
+        button.addEventListener('click', function() {
+            var contenidoId = this.getAttribute('data-id');
+            // Navegar a la nueva ruta
+            window.location.href = '/curso/contenido/material/' + contenidoId;
+        });
+    });
+}

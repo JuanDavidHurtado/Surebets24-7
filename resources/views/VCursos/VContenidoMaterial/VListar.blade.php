@@ -13,8 +13,11 @@
 </style>
 <div class="main row">
     <div class="col-12">
+        <div class="search-bar " id="return_listar_cursos">
+            <a id="return_listar_contenido"  class="btn btn-custom text-white btn-custom-rounded " role="button"><< Listar contenido</a>
+        </div>
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="mb-0">Contenido</h3>
+            <h3 class="mb-0">Material </h3>
         </div>
 
         <!-- table -->
@@ -31,27 +34,21 @@
                 </thead>
                 <tbody>
                     <tr class="text-center" id="message-noFound">
-                        <td colspan="100%">No Data Found!</td>
+                        <td colspan="100%">No se encontraron datos!</td>
                     </tr>        
                 </tbody>
             </table>
             <nav>
                 <ul class="pagination">
-                    <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
-                        <span class="page-link" aria-hidden="true">‹</span>
-                    </li>
-                    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" rel="next" aria-label="Next »">›</a>
-                    </li>
+                   
                 </ul>
             </nav>
         </div>
     </div>
     
-    {{-- Modal para videos --}}
+ 
     <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered custom-modal-size" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 80%; height: 80%;">
             <div class="modal-content">
                 <div class="modal-body">
                     <video id="videoPlayer" width="100%" height="100%" controls>
@@ -65,5 +62,5 @@
     
 </div>
 
-<script src="{{asset('js/contenido/contenidoMaterial.js')}}"></script>
+<script type="module" src="{{asset('js/contenido/contenidoMaterial.js')}}"></script>
 @endsection

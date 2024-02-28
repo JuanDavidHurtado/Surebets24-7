@@ -94,10 +94,13 @@
 
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
+            
+            // Deshabilita el botón de envío para evitar múltiples envíos
+            var button = this.querySelector('button[type="submit"]');
+            button.disabled = true;
             // Recolecta los datos del formulario
             const formData = new FormData(form);
-            
+            formData.append('id', localStorage.getItem('id') );
             // Realiza una solicitud Fetch a una URL específica
             fetch('/api/agregar_curso_usuario', {
                     method: 'POST', // O el método que necesites
@@ -112,15 +115,17 @@
                 .then(response => response.json())
                 .then(data => {
 
-                    console.log(data);
                     if (data.status === 201) {
                         const Message = data.message;
                         const redirectUrl = `{{ route('lista_curso') }}?Message=${encodeURIComponent(Message)}`;
+                        form.reset();
+                        button.disabled = false;
                         window.location.href = redirectUrl;
                     } else {
                         // Muestra un mensaje de error en el mensajeContainer
                         const Message = 'Error: Ocurrió un problema al procesar la solicitud';
                         const redirectUrl = `{{ route('lista_curso') }}?Message=${encodeURIComponent(Message)}`;
+                        button.disabled = false;
                         window.location.href = redirectUrl;
                     }
                 })
@@ -137,9 +142,9 @@
         // Obtener el valor de ID de tu formulario
         const id = document.getElementById('id_curso').value;
 
-        console.log(id);
+      
         // Realizar la solicitud Fetch a tu API en api.php
-        fetch(`/api/seleccion_curso/${id}`,
+        fetch(`/api/seleccion_curso_compra/${id}`,
         { 
             method: 'GET',
             headers: {
@@ -157,7 +162,6 @@
                 return response.json();
             })
             .then(data => {
-                console.log(data.resultados);
                 // Actualizar los campos del formulario con los datos recibidos
                 document.getElementById('nombre').value = data.data[0].curNombre;
                 document.getElementById('valor').value = data.data[0].curValor + ' USD';

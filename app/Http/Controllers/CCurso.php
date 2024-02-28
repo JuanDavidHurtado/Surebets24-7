@@ -12,12 +12,14 @@ class CCurso extends Controller
 
 
 
-    public function listar()
+    public function listar(Request $request)
     {
-        $sql = "SELECT * FROM curso ";
-        $data = DB::select($sql);
-
-        return response()->json($data);
+        // $sql = "SELECT * FROM curso ";
+        // $data = DB::select($sql);
+        $cursos = DB::table('curso')->paginate(10);
+         
+        
+        return response()->json($cursos);
     }
 
     public function agregar(Request $request)

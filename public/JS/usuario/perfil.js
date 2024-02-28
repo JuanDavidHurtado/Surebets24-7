@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    if(localStorage.getItem('idUsuario')){
-        id = localStorage.getItem('idUsuario')
+    if(localStorage.getItem('id')){
+        id = localStorage.getItem('id')
     }
     
     // Realizar la solicitud Fetch a tu API en api.php
@@ -56,7 +56,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form_2.addEventListener('submit', function (event) {
         event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
+        
+        // Deshabilita el botón de envío para evitar múltiples envíos
+        var button = this.querySelector('button[type="submit"]');
+        button.disabled = true;
+        
         const documento = document.getElementById('documento').value;
         const nombre = document.getElementById('nombre').value;
         const apellido = document.getElementById('apellido').value;
@@ -68,6 +72,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (documento === '' || nombre === '' || apellido === '' || login === '' || correo === '' || telefono === '' || direccion === '') {
             // Verifica si algún campo está vacío y muestra un mensaje de error
             alert('Todos los campos son obligatorios. Por favor, complete todo el formulario.');
+            button.disabled = false;
+
         } else {
 
             // Recolecta los datos del formulario
@@ -94,11 +100,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.status === 200) {
                         const Message = data.message;
                         alert(Message)
+                      
+                        //activar boton de nuevo
+                        button.disabled = false;
+
                         location.reload();
                     } else {
                         // Muestra un mensaje de error en el mensajeContainer
                         const Message = 'Error: Ocurrió un problema al procesar la solicitud';
                         alert(Message)
+                        //activar boton de nuevo
+                        button.disabled = false;
+
                         location.reload();
                     }
                 })
@@ -119,7 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form_3.addEventListener('submit', function (event) {
         event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
+        
+        // Deshabilita el botón de envío para evitar múltiples envíos
+         var button_3 = this.querySelector('button[type="submit"]');
+         button_3.disabled = true;
+         
         const actualClave = document.getElementById('actual_clave').value;
         const nuevaClave = document.getElementById('clave').value;
         const claveConf = document.getElementById('clave_conf').value;
@@ -127,9 +144,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (actualClave === '' || nuevaClave === '' || claveConf === '') {
             // Verifica si algún campo está vacío y muestra un mensaje de error
             alert('Todos los campos son obligatorios. Por favor, complete todo el formulario.');
+            button_3.disabled = false;
+
         } else if (nuevaClave !== claveConf) {
             // Verifica si las contraseñas no coinciden y muestra un mensaje de error
             alert('Las contraseñas no coinciden. Por favor, asegúrese de que las contraseñas coincidan.');
+            button_3.disabled = false;
+
         } else {
 
             // Recolecta los datos del formulario
@@ -156,11 +177,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.status === 200) {
                         const Message = data.message;
                         alert(Message)
+                        button_3.disabled = false;
+
                         location.reload();
                     } else {
                         // Muestra un mensaje de error en el mensajeContainer
                         const Message = 'Error: Ocurrió un problema al procesar la solicitud';
                         alert(Message)
+                        button_3.disabled = false;
+
                         location.reload();
                     }
                 })

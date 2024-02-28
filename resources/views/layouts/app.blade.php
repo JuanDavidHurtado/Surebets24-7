@@ -10,10 +10,10 @@
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Hyip Pro,  A Modern Hyip Investmet Platform" name="description" />
         <meta content="investment, HYIP, HYIP investment, hyip website, invest, investment, Investment Management system, investment script, Bug Finder, bug-finder, bugfinder.net, bugfinder" name="keywords" />
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('darkpurple/uploads/logo/favicon.png') }}">
-        <link href="{{asset('darkpurple/uploads/logo/logo.png')}}" rel="apple-touch-icon" />
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img//logo.jpeg') }}">
+        <link href="{{asset('img//logo.jpeg')}}" rel="apple-touch-icon" />
         <title>Surebets24/7</title>
-        <link href="{{asset('uploads/logo/favicon.png')}}" rel="icon" sizes="16x16" type="image/png" />
+        <!--link href="{{asset('uploads/logo/favicon.png')}}" rel="icon" sizes="16x16" type="image/png" /-->
         <!-- <meta property="og:url" content="https://script.bugfinder.net/hyippro/purple"> -->
         <meta content="summary_large_image" name="twitter:card" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -45,7 +45,7 @@
             <!-- navbar -->
             <nav class="navbar navbar-expand-lg fixed-top">
                 <div class="container">
-                    <a class="navbar-brand" href="{{route('about')}}"> <img alt="Hyippro" src="{{asset('darkpurple/img/logo.jpeg')}}" /></a>
+                    <a class="navbar-brand" href="{{route('about')}}"> <img alt="Hyippro" src="{{asset('img/logo.jpeg')}}" /></a>
                     <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler p-0" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
                         <i aria-hidden="true" class="far fa-bars"></i>
                     </button>
@@ -54,12 +54,15 @@
                             <li class="nav-item">
                                 <a class="nav-link active" href="{{route('about')}}">Sobre Nosotros</a>
                             </li>
+                             <li class="nav-item">
+                                <a class="nav-link" href="{{route('trabaja_con_nosotros')}}">Trabaja con Nosotros</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('deportes')}}">Deportes</a>
                             </li>
-                            <li class="nav-item">
+                            <!--li class="nav-item">
                                 <a class="nav-link" href="{{route('estadisticas')}}">Estadisticas</a>
-                            </li>
+                            </li-->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('plan')}}">Plan</a>
                             </li>

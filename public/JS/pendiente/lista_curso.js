@@ -1,3 +1,5 @@
+import { actualizarPaginacion, cargarDatosOriginales } from "../paginacion/paginacion.js";
+
 document.addEventListener('DOMContentLoaded', function () {
     let originalData = []; // Almacena los datos originales sin filtrar
     const tableBody = document.querySelector('.table.table-striped tbody');
@@ -6,8 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para llenar la tabla con los datos
     function fillTableWithData(data) {
         tableBody.innerHTML = ''; // Limpiar la tabla antes de agregar nuevos datos
-        data.forEach((usu_cur, index) => {
-            console.log(usu_cur);
+        data.data.forEach((usu_cur, index) => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${index + 1}</td>
@@ -23,8 +24,22 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             tableBody.appendChild(row);
         });
+
+        actualizarPaginacion(data, '.table.table-striped tbody', fillTableWithData, (data) => {
+            originalData = data; // Actualiza originalData con los nuevos datos de paginación
+        });
     }
 
+    async function restoreOriginalData() {
+        var dataOriginal;
+        if (originalData && originalData.links ) {
+            const originalDataUrl = originalData.links.find(link => link.active).url;
+            // Luego puedes usar esta URL en tu función cargarDatos si es necesario
+            dataOriginal= await cargarDatosOriginales(originalDataUrl);      
+        }   
+        
+        fillTableWithData(dataOriginal);
+        }
     // Utiliza la función fetch para realizar la petición fetch
     fetch('/api/pendiente_curso',
         { 
@@ -44,9 +59,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(data => {
-            if (data.length > 0) {
+            if (data.data.length > 0) {
                 originalData = data; // Almacena los datos originales
                 fillTableWithData(data); // Llena la tabla con los datos originales
+                actualizarPaginacion(data, '.table.table-striped tbody', fillTableWithData, (data) => {
+                    originalData = data; // Actualiza originalData con los nuevos datos de paginación
+                });
 
             } else {
                 const noDataMessage = document.createElement('tr');
@@ -59,13 +77,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     // Agrega un evento input al campo de entrada para búsqueda en tiempo real
-    const sponsorURLInput = document.getElementById('filterStartDoc');
-    sponsorURLInput.addEventListener('input', function () {
-        const inputText = sponsorURLInput.value.toLowerCase(); // Convertir a minúsculas para coincidencia no sensible a mayúsculas
-        const filteredData = originalData.filter(usu_cur =>
-            usu_cur.usuDocumento.toLowerCase().includes(inputText)
-        );
-        fillTableWithData(filteredData);
+    const filterStartDate = document.getElementById('filterStartDoc');
+    filterStartDate.addEventListener('input', function () {
+        const searchValue = filterStartDate.value.toLowerCase();
+        
+        if (searchValue === '' || searchValue.trim() === '') {
+            // Si el campo de búsqueda está vacío, restaura los datos originales
+            restoreOriginalData();
+          
+        } else {
+            // Realiza la búsqueda y muestra los resultados filtrados
+            const filteredData = originalData.data.filter(usu_inv =>
+                usu_inv.usuDocumento.toLowerCase().includes(searchValue)
+            );
+            const updatedData = { ...originalData, data: filteredData };
+            fillTableWithData(updatedData);
+        }
+
     });
 
     // Función para actualizar el método al hacer clic en los botones

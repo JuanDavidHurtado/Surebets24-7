@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\DB;
 class CMetodo extends Controller
 {
 
-    public function listar()
+    public function listar($id)
     {
         $sql = "SELECT * FROM metodo_pago AS mp
         WHERE
         mp.metEstado = 'ACTIVO' AND 
-        mp.usuario_idUsuario =  1;";
+        mp.usuario_idUsuario =  '$id';";
         $data = DB::select($sql);
 
         return response()->json($data);
@@ -28,7 +28,7 @@ class CMetodo extends Controller
             $tipo = $request->input('tipo');
             $numero = $request->input('numero');
             $documento = $request->input('documento');
-            $id_usu = 1; //$request->input('id_usu');
+            $id_usu = $request->input('id');//1; //$request->input('id_usu');
 
 
             DB::insert(

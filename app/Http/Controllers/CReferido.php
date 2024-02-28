@@ -13,17 +13,21 @@ class CReferido extends Controller
     public function listar($id)
     {
       
-        $sql = "
-    SELECT *
-    FROM usuario AS u
-    INNER JOIN estado AS est ON est.idEstado = u.estado_idEstado
-    INNER JOIN rol AS r ON r.idRol = u.rol_idRol
-    WHERE u.usuPatrocinador = $id
-";
-        $data = DB::select($sql);
-
-
-        return response()->json($data);
+       
+        try {
+            $usuarios = DB::table('usuario as u')
+                            ->join('estado as est', 'est.idEstado', '=', 'u.estado_idEstado')
+                            ->join('rol as r', 'r.idRol', '=', 'u.rol_idRol')
+                            ->where('u.usuPatrocinador', $id)
+                            ->select('*') // Especifica las columnas que necesitas
+                            ->paginate(10);
+        
+            return response()->json($usuarios);
+        } catch (\Exception $e) {
+            // Manejar la excepción
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    
     }
 
    

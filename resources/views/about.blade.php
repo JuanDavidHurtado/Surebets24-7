@@ -551,6 +551,28 @@
         </div>
     </div>
 </section>
+<section class="testimonial-section">
+    <div class="container">
+        <div class="row" >
+            <div class="col-12">
+                <div class="header-text text-center" data-aos="fade-up" data-aos-duration="1000" data-aos-anchor-placement="center-bottom">
+                    <h2>ÚNETE A LA EXPERIENCIA EN ARBITRAJE DEPORTIVOS CON ASESORAMIENTO PREMIUM Y UNA COMUNIDAD DE ÉXITO</h2>
+                    <a>Arbitraje deportivo siguiendo la normatividad, con los mejores software y el mejor equipo en áreas
+                        como marketing, contabilidad, informática,administración, para ofrecer de este servicio el
+                        mejor en calidad. Todo un mundo de oportunidades a tu alcance. Ven y has parte de este gran sueño
+                        que inicia completamente gratis donde tendrás un asesoramiento personalizado en modo premium y
+                        entenderás todo acerca de las apuestas deportivas aún sin que ni siquiera gustes de ello o sin importar
+                        tu género, tenemos nuestro servicio al cliente enfocado en diferentes áreas para ayudarte en la
+                        que necesites, NO SOMOS UN MULTINIVEL tampoco queremos serlo, queremos ayudar y ganar
+                        juntos. Surebets24/7.com, ven y has parte de esta gran comunidad, somos una familia y crecemos
+                        rápido, cupos limitados.</a>
+             
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</section>
 <!-- payment gateway -->
 <section class="payment-gateway">
     <div class="container">

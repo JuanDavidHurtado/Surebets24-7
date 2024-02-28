@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use App\Utilities\CorreoUtil;
 
 
 class CInversion extends Controller
@@ -38,7 +40,7 @@ class CInversion extends Controller
                 'pagHash' => $hash
             ]);
 
-            $usuario = 2; //id inicio sesion
+            $usuario = $request->input('id'); //id inicio sesion
             $producto = $request->input('id_pro');
             $fecha_inicio = date('Y-m-d');
             $dias = $request->input('dias');
@@ -56,11 +58,19 @@ class CInversion extends Controller
 
             $sql = "SELECT * FROM usuario AS u
             WHERE 
-            u.usuPatrocinador IS NOT NULL AND
             u.idUsuario = '$usuario'";
             $data = DB::select($sql);
 
-            if (sizeof($data) > 0) {
+            // Renderiza la vista a una cadena de texto
+            $cuerpo = View::make('emails.inversion')->render();
+
+            $destinatario = $data[0]->usuCorreo;
+            $asunto = 'Inversion Surebets';
+            CorreoUtil::enviarCorreo($destinatario, $asunto, $cuerpo);
+
+            
+
+            if (sizeof($data) > 0 && $data[0]->usuPatrocinador != NULL) {
                 $sql_inv = "SELECT * FROM inversion AS inv
                 WHERE inv.idInversion = '$producto'";
                 $data_inv = DB::select($sql_inv);
@@ -88,14 +98,21 @@ class CInversion extends Controller
             return response()->json(['status' => 500, 'message' => 'Error al agregar el registro de inversión: ' . $e->getMessage()], 500);
         }
     }
-    public function producto_usuario()
+    public function producto_usuario($id)
     {
-        $sql = "SELECT * FROM usuario_inversion AS ui
-        
-        INNER JOIN inversion AS i ON i.idInversion = ui.inversion_idInversion
-        WHERE ui.usuario_idUsuario = '1'";
-        $data = DB::select($sql);
-
-        return response()->json($data);
+        try {
+            $data = DB::table('usuario_inversion as ui')
+                ->join('inversion as i', 'i.idInversion', '=', 'ui.inversion_idInversion')
+                ->where('ui.usuario_idUsuario', $id)
+                ->paginate(10);
+            
+            return response()->json($data);
+        } catch (\Exception $e) {
+            // Registrar el error
+           // \Log::error('Error en producto_usuario: ' . $e->getMessage());
+    
+            // Devolver una respuesta de error
+            return response()->json(['error' => 'Ocurrió un error al obtener los datos'], 500);
+        }
     }
 }

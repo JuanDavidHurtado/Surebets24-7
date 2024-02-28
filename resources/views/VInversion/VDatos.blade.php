@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="main row">
-    <div class="col-12">
+    <div class="col-8">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h3 class="mb-0">Transferencia de saldo</h3>
         </div>
@@ -79,6 +79,14 @@
 
     </div>
 
+    <div class="col-4">
+        <h4>Realiza el pago mediante bitcoin</h4>
+        <hr>
+        <pre>Envíe BTC a la dirección de Bitcoin:<br> bc1qssnx8zm6d5vvmzf8sm3ncz3lmdgj8cg4eeu3cf</pre>
+        <pre>QR de pago:</pre>
+        <center><img src="{{ asset('darkpurple/img/qrbtc.jpg') }}"></center>
+    </div>
+
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -87,10 +95,14 @@
 
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
+            
+            // Deshabilita el botón de envío para evitar múltiples envíos
+            var button = this.querySelector('button[type="submit"]');
+            button.disabled = true;
+            var id = localStorage.getItem('id');
             // Recolecta los datos del formulario
             const formData = new FormData(form);
-
+            formData.append('id', id);
             // Realiza una solicitud Fetch a una URL específica
             fetch('/api/agregar_inversion', {
                     method: 'POST',
@@ -109,11 +121,15 @@
                     if (data.status === 201) {
                         const Message = data.message;
                         const redirectUrl = `{{ route('lista_inversion') }}?Message=${encodeURIComponent(Message)}`;
+                        form.reset();
+                        button.disabled = false;
+
                         window.location.href = redirectUrl;
                     } else {
                         // Muestra un mensaje de error en el mensajeContainer
                         const Message = 'Error: Ocurrió un problema al procesar la solicitud';
                         const redirectUrl = `{{ route('lista_inversion') }}?Message=${encodeURIComponent(Message)}`;
+                        button.disabled = false;
                         window.location.href = redirectUrl;
                     }
                 })
@@ -151,7 +167,7 @@
                 return response.json();
             })
             .then(data => {
-                console.log(data);
+                
                 // Actualizar los campos del formulario con los datos recibidos
                 document.getElementById('nombre').value = data[0].invNombre;
                 document.getElementById('valor').value = data[0].invValor + ' USD';

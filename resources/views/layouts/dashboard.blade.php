@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="https://purple-hyip.bugfinder.net/assets/uploads/logo/favicon.png" type="image/x-icon">
 
     <link rel="apple-touch-icon" href="https://purple-hyip.bugfinder.net/assets/uploads/logo/logo.png">
-    <title>Hyippro | badges</title>
+    <title>{{$titulo}}</title>
     <link rel="icon" type="image/png" sizes="16x16" href="https://purple-hyip.bugfinder.net/assets/uploads/logo/favicon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -51,31 +51,43 @@
         <div class="link-item">
             <button onclick="toggleSideMenu()">
                 <span class="icon"><i class="fal fa-ellipsis-v-alt" aria-hidden="true"></i></span>
-                <span class="text">Menus</span>
+                <span class="text">Menu</span>
             </button>
         </div>
-        <div class="link-item">
-            <a href="https://purple-hyip.bugfinder.net/plan">
+        <div class="link-item" id="inversionA" style="display: none;">
+            <a href="{{route('pendiente_inversion')}}">
                 <span class="icon"><i class="fal fa-layer-group" aria-hidden="true"></i></span>
-                <span class="text">Plan</span>
+                <span class="text">Inversion</span>
+            </a>
+        </div>
+        <div class="link-item" id="inversionB" style="display: none;">
+            <a href="{{route('historial_inversion')}}">
+                <span class="icon"><i class="fal fa-layer-group" aria-hidden="true"></i></span>
+                <span class="text">Inversion</span>
             </a>
         </div>
         <div class="link-item active">
-            <a href="https://purple-hyip.bugfinder.net/user/dashboard">
+            <a href="{{route('home_dashboard')}}">
                 <span class="icon"><i class="fal fa-house" aria-hidden="true"></i></span>
                 <span class="text">Home</span>
             </a>
         </div>
-        <div class="link-item ">
-            <a href="https://purple-hyip.bugfinder.net/user/add-fund">
+        <div class="link-item " id="cursoA"  style="display: none;">
+            <a href="{{route('pendiente_curso')}}">
                 <span class="icon"><i class="fal fa-funnel-dollar" aria-hidden="true"></i></span>
-                <span class="text">Deposit</span>
+                <span class="text">Curso</span>
+            </a>
+        </div>
+        <div class="link-item " id="cursoB"  style="display: none;">
+            <a href="{{route('historial_curso')}}">
+                <span class="icon"><i class="fal fa-funnel-dollar" aria-hidden="true"></i></span>
+                <span class="text">Curso</span>
             </a>
         </div>
         <div class="link-item ">
-            <a href="https://purple-hyip.bugfinder.net/user/profile">
+            <a href="{{route('perfil')}}">
                 <span class="icon"><i class="fal fa-user" aria-hidden="true"></i></span>
-                <span class="text">Profile</span>
+                <span class="text">Perfil</span>
             </a>
         </div>
     </div>
@@ -90,7 +102,7 @@
         <div id="sidebar" class="">
 
             <div class="sidebar-top">
-                <a class="navbar-brand d-none d-lg-block" href="https://purple-hyip.bugfinder.net"> <img src="https://purple-hyip.bugfinder.net/assets/uploads/logo/logo.png" alt="brand logo"></a>
+                <a class="navbar-brand d-none d-lg-block" href="{{route('home_dashboard')}}"> <img src="https://purple-hyip.bugfinder.net/assets/uploads/logo/logo.png" alt="brand logo"></a>
                 <div class="mobile-user-area d-lg-none">
                     <div class="thumb">
                         <img class="img-fluid user-img" src="https://purple-hyip.bugfinder.net/assets/admin/images/default.png" alt="...">
@@ -108,9 +120,11 @@
 
             <div class="level-wrapper">
                 <div class="level-box">
+                  
+
                     <h4 id="nivel_usuario"></h4>
                     <p id="usuario"></p>
-                    <img src="https://purple-hyip.bugfinder.net/assets/uploads/rank/63b2b77635d571672656758.png" alt="level image" class="level-badge">
+                    <img src="{{ asset('darkpurple/img/icon/gold-medal.png') }}" alt="level image" class="level-badge">
                 </div>
             </div>
 
@@ -118,7 +132,7 @@
 
             <ul class="main tabScroll">
                 <li>
-                    <a class="active" href="{{route('home')}}"> <i class="fal fa-house" aria-hidden="true"></i> Home
+                    <a class="active" href="{{route('home_dashboard')}}"> <i class="fal fa-house" aria-hidden="true"></i> Home
                     </a>
                 </li>
 
@@ -132,16 +146,32 @@
                         </a>
                         <ul class="collapse list-unstyled" id="submenuPendiente">
                             <li>
-                                <a href="{{route('pendiente_inversion')}}" class="sidebar-link">* Listar Inversion</a>
+                                <a href="{{route('pendiente_inversion')}}" class="sidebar-link">Listar Inversion</a>
                             </li>
                             <li>
-                                <a href="{{route('pendiente_curso')}}" class="sidebar-link">* Listar Curso</a>
+                                <a href="{{route('pendiente_curso')}}" class="sidebar-link">Listar Curso</a>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{route('lista_comision_finalizar')}}" class="sidebar-link">
                             <i class="fal fa-tag" aria-hidden="true"></i> Listar Comision </a>
+                    </li> --}}
+                    <li class="sidebar-item">
+                        <a href="#submenuComision" data-toggle="collapse" class="sidebar-link collapsed">
+                            <i class="fal fa-thumbtack" aria-hidden="true"></i>
+                            <span>Admin. Comision</span>&nbsp
+                            <i class="fal fa-angle-right" aria-hidden="true"></i>
+    
+                        </a>
+                        <ul class="collapse list-unstyled" id="submenuComision">
+                            <li>
+                                <a href="{{route('lista_comision_finalizar')}}" class="sidebar-link">* Listar Comision</a>
+                            </li>
+                            <li>
+                                <a href="{{route('lista_comision_especial')}}" class="sidebar-link">* Comision Especial</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="{{route('lista_usuario')}}" class="sidebar-link">
@@ -179,7 +209,7 @@
                         </a>
                         <ul class="collapse list-unstyled" id="submenuCursos">
                             <li>
-                                <a href="{{route('listar_curso')}}" class="sidebar-link">* Listar Cursos</a>
+                                <a href="{{route('listar_curso')}}" class="sidebar-link">Listar Cursos</a>
                             </li>
                             <li>
                                 <a href="{{route('agregar_curso')}}" class="sidebar-link">Agregar Cursos</a>
@@ -257,14 +287,8 @@
                     <a href="{{route('perfil')}}" class="sidebar-link ">
                         <i class="fal fa-user" aria-hidden="true"></i> Ajuste de Perfil </a>
                 </li>
-                <li>
-                    <a href="#" class="sidebar-link ">
-                        <i class="fal fa-user-headset" aria-hidden="true"></i> support ticket </a>
-                </li>
-                <li class="d-lg-none">
-                    <a href="#">
-                        <i class="fal fa-lock" aria-hidden="true"></i> 2FA Security </a>
-                </li>
+               
+               
 
             </ul>
         </div>
@@ -289,9 +313,12 @@
               
                     
                     <div class="user-panel d-none d-lg-inline-block">
-                        <span class="profile"> <img src="https://purple-hyip.bugfinder.net/assets/admin/images/default.png" alt="user img" class="img-fluid"></span>
+                        <span class="profile" > 
+                            
+                            <img id="perfil_img_default" src="{{ asset('darkpurple/img/userDefault.jpg') }}" alt="image" style="display: none;" />
+                            <img id="perfil_img" src="" alt="user img" class="img-fluid" ></span>
                         <ul class="user-dropdown">
-                            <li><a href="#"><i aria-hidden="true" class="fal fa-border-all"></i> Dashboard
+                            <li><a href="{{route('home_dashboard')}}"><i aria-hidden="true" class="fal fa-border-all"></i> Dashboard
                                 </a>
                             </li>
                             <li><a href="{{route('perfil')}}"><i aria-hidden="true" class="fal fa-user"></i> Mi Perfil
@@ -316,7 +343,13 @@
         <!-- arrow up -->
         <a href="#" class="scroll-up" style="display: none;"><i class="fal fa-long-arrow-up" aria-hidden="true"></i> </a>
         <script src="{{ asset('js/usuario/auth-redirect.js') }}"></script>
+        <script>
 
+            function imgDefault() {
+                // Redirecciona solo cuando se hace clic en la alerta
+                var imgDefault = "{{ asset('darkpurple/img/default.png') }}";
+            }
+            </script>
         <script src="{{asset('js/usuario/login.js')}}"></script>
         <script src="{{asset('darkpurple/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('darkpurple/js/jquery-3.6.1.min.js')}}"></script>

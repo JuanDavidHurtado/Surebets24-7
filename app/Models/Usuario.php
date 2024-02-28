@@ -17,6 +17,7 @@ class Usuario extends Authenticatable
      *
      * @var array<int, string>
      */
+    public $timestamps = false;
     protected $table = 'usuario'; // Confirma que este sea el nombre correcto
     protected $primaryKey = 'idUsuario';
     protected $fillable = [

@@ -50,7 +50,7 @@
 </div>
 
 
-<script src="{{asset('js/cursos.js')}}"></script>
+<script type="module" src="{{asset('js/curso/cursos.js')}}"></script>
 
 
 @endsection

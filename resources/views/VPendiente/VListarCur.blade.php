@@ -35,9 +35,15 @@
 
                 </tbody>
             </table>
+            <nav>
+                <ul class="pagination">
+
+                    
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
-<script src="{{ asset('js/pendiente/lista_curso.js') }}"></script>
+<script type="module" src="{{ asset('js/pendiente/lista_curso.js') }}"></script>
 
 @endsection

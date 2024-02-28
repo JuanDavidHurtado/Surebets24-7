@@ -21,8 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    
+    var idUsuario= localStorage.getItem('id')
+
+
     // Utiliza la función fetch para realizar la petición fetch
-    fetch('/api/lista_comision',
+    fetch('/api/lista_comision/'+ idUsuario,
         { 
             method: 'GET',
             headers: {
@@ -41,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(data => {
+          
             if (data.length > 0) {
                 originalData = data; // Almacena los datos originales
                 fillTableWithData(data); // Llena la tabla con los datos originales
