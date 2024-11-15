@@ -1,0 +1,87 @@
+.flipswitch {
+  position: relative;
+  width: 100px;
+}
+
+.flipswitch input[type=checkbox] {
+  display: none;
+}
+
+.flipswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid #999999;
+  border-radius: 50px;
+}
+
+.flipswitch-inner {
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+
+.flipswitch-inner:before, .flipswitch-inner:after {
+  float: left;
+  width: 50%;
+  height: 30px;
+  padding: 0;
+  line-height: 30px;
+  font-size: 20px;
+  color: #ffffff;
+  font-family: Trebuchet, Arial, sans-serif;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.flipswitch-inner:before {
+  content: "Der.";
+  padding-left: 15px;
+  background-color: #1e0f46;
+  color: #FFFFFF;
+}
+
+.flipswitch-inner:after {
+  content: "Izq.";
+  padding-right: 15px;
+  background-color: #FFFFFF;
+  color: #1e0f46;
+  text-align: right;
+}
+
+.flipswitch-switch {
+  width: 35px;
+  margin: -2.5px;
+  background: #FFFFFF;
+  border: 1px solid #999999;
+  border-radius: 40px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 67px;
+  transition: all 0.3s ease-in 0s;
+}
+
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-inner {
+  margin-left: 0;
+}
+
+.flipswitch-cb:checked + .flipswitch-label .flipswitch-switch {
+  right: 0;
+}
+
+
+/* Estilos para el cuadro de checkbox y el label */
+.checkbox-container-nodo {
+display: flex;
+align-items: center; /* Alinea verticalmente los elementos */
+}
+
+.checkbox-container-nodo input[type="checkbox"] {
+margin-right: 5px; /* Ajusta el margen derecho para separar el checkbox del texto */
+}
+
+
+#buttonUsrPosicion{
+cursor: pointer;
+}

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,10 +10,19 @@ class CContenido extends Controller
 
     public function listar($id)
     {
-        $sql = "SELECT * FROM curso AS c
-        INNER JOIN contenido AS cont ON cont.curso_idCurso = c.idCurso";
-        $data = DB::select($sql);
 
+        $id_deco = base64_decode($id);
+        
+
+
+        $data = DB::table('curso as c')
+            ->join('contenido as cont', 'cont.curso_idCurso', '=', 'c.idCurso')
+            ->where('c.idCurso', $id_deco)
+            ->select('c.*', 'cont.*') // Selecciona los campos que necesites
+            ->paginate(10);
+
+            //dd($data);
+           
         return response()->json($data);
     }
 
@@ -22,7 +30,8 @@ class CContenido extends Controller
     {
         try {
             $nombre = $request->input('nombre');
-            $id_curso = $request->input('id_curso');
+            $id_curso = base64_decode($request->input('id_curso'));
+            //$request->input('id_curso');
 
             DB::insert('INSERT INTO contenido (conNombre, curso_idCurso) VALUES (?,?)', [$nombre, $id_curso]);
 

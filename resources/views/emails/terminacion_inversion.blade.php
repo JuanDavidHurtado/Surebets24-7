@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surebets 24/7</title>
+</head>
+
+<body>
+    <pre style='text-align:left'>
+        ¡Felicitaciones!
+
+        Nos complace informarte que tu inversión {{ $nom_inv }} con un valor de {{ $val_inv }} USD a {{ $dia_inv }} días en <strong style='color:#336EFF;'>Surebets 24/7</strong> ha finalizado exitosamente.
+
+        Durante el período de tu inversión, has formado parte activa de nuestra comunidad, y estamos agradecidos por tu confianza en nosotros.
+
+        Ahora que el tiempo de tu inversión ha culminado, puedes proceder a revisar los resultados y obtener la rentabilidad correspondiente. Te invitamos a seguir invirtiendo con nosotros para aprovechar futuras oportunidades.
+
+        Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos a través de la línea 
+        <strong style='color:#336EFF;'>+1 (929)867-3569</strong> o enviándonos un correo a 
+        <strong style='color:#336EFF;'>administracion@surebets24siete.com</strong>.
+
+        <strong style='color:#336EFF;'><center>---- AVISO DE CONFIDENCIALIDAD: ----</center></strong><br>
+        La información contenida en este correo y sus anexos es confidencial y solo puede ser utilizada por la persona o empresa a la cual está dirigida. Si no eres el receptor autorizado, cualquier retención, difusión, distribución o copia de este correo está prohibida y sancionada por la ley. Si por error recibes este correo, por favor reenvíalo al remitente de Corredor Empresarial S.A. y/o bórralo inmediatamente. Esta información es propiedad de Corredor Empresarial S.A. Toda distribución o copia de este documento sin la autorización expresa de Corredor Empresarial S.A. está prohibida y sancionada por la ley.<br><br>
+        Cordialmente<br><br>
+        Equipo de Inversiones <strong style='color:#336EFF;'>Surebets 24/7</strong>.
+    </pre>
+</body>
+
+</html>
